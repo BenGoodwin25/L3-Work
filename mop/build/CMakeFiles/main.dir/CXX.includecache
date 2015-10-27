@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ben/work/mop/src/client.h
+vector
+-
+string
+-
+
+/home/ben/work/mop/src/goods.h
+vector
+-
+
+/home/ben/work/mop/src/main.cpp
+main.h
+/home/ben/work/mop/src/main.h
+
+/home/ben/work/mop/src/main.h
+stdio.h
+-
+string
+-
+vector
+-
+client.h
+/home/ben/work/mop/src/client.h
+goods.h
+/home/ben/work/mop/src/goods.h
+
