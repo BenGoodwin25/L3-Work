@@ -29,20 +29,31 @@ void createSubstTab(char *tabCipher,char *tabinit,char *key, size_t size){
 
 
 int main(int argc, char *argv[]) {
+	if(argc != 2){
+		fprintf(stderr,"Need one Parameter\n");
+	}
 	int i,j;
-	char tabinit[26]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','W','X','Y','Z'};
+	char tabinit[26]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 	char *tabCipher=malloc(sizeof(int)*26);
 	size_t size;
+	char c;
 	char *key=argv[1];
 	size=strlen(key);
 	createSubstTab(tabCipher, tabinit, key, size);
 	//DEBUG//
-	for(j=0;j<size+26;j++){
-		printf(" %c",tabCipher[j]);
+	/*for(j=0;j<size+26;j++){
+		printf("%c :",tabinit[j]);
+		printf(" %c\n",tabCipher[j]);
 	}
-	printf("\n");
-	/*for(j=0;j<27;j++){
-		printf(" %c",tabinit[j]);
-	}*/
+	printf("\n");*/
+	//ENCRYPT//
+	while ((i = fgetc(stdin)) != EOF){
+		if((unsigned char) i < 'A' || (unsigned char) i > 'Z'){
+			c=(unsigned char) i;
+		}else{
+			c=(unsigned char) tabCipher[i-'A'];
+		}
+		printf("%c",c);
+	}
 	return 0;
 }

@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 int main(int argc, char *argv[]) {
+	if(argc != 2){
+		fprintf(stderr,"Need one Parameter\n");
+	}
 	int i,j=0;
 	char *key=argv[1];
 	size_t size=strlen(key);

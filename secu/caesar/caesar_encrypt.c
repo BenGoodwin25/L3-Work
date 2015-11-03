@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 int main(int argc, char *argv[]) {
+	if(argc != 2){
+		fprintf(stderr,"Need one Parameter\n");
+	}
 	int i;
 	int nbshift=atoi(argv[1]);
 	while ((i = fgetc(stdin)) != EOF) {
