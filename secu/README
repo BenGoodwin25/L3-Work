@@ -1,0 +1,20 @@
+for encrypt & decrypt just "gcc -o caesar caesar_encrypt.c"(for caesar_encrypt for example)
+
+& for break :
+
+-modify caesar_break.py to adjust the name of the file to open.
+-chose each letter by hand, for the first ones choose them with the % of recurence, you can use a file if you have to start again if you did a wrong choice,
+example:
+
+A->letter cipher
+B->letter plain
+
+C->...
+D->...
+
+E->...
+F->...
+
+...
+
+-Vigenere break not achieved

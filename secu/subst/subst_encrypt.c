@@ -31,6 +31,7 @@ void createSubstTab(char *tabCipher,char *tabinit,char *key, size_t size){
 int main(int argc, char *argv[]) {
 	if(argc != 2){
 		fprintf(stderr,"Need one Parameter\n");
+		return 1;
 	}
 	int i,j;
 	char tabinit[26]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
