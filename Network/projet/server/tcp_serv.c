@@ -16,7 +16,7 @@ int main(){
 	struct sockaddr_in serveur = {AF_INET};
 	struct sockaddr_in client;
 	
-	serveur.sin_port=2008;
+	serveur.sin_port=2000;
 	serveur.sin_family=AF_INET;
 	serveur.sin_addr.s_addr=INADDR_ANY;
 	d_sock=socket(AF_INET,SOCK_STREAM,0);
@@ -33,22 +33,16 @@ int main(){
 	read(service,mess_recu,BUFSIZ);
 	printf("Le serveur a recu : %s\n",mess_recu);
 	//envoi du nom de fichier
-	strcpy(mess_envoi,"chevaux.mp4");
+	strcpy(mess_envoi,"zerg-rush.jpg");
 	cc=write(service,mess_envoi,sizeof(mess_envoi));
 	printf("message envoyer : %s\n",mess_envoi);
 	
 	//envoi du fichier
-	FILE* fp=fopen("chevaux.mp4","r");
-	//FILE* fp=fopen("test","r");
-	int nb_lignes=0;
-	char ligne_lue[BUFSIZ];
-	while(fgets(ligne_lue,BUFSIZ,fp) != NULL){
-		strcpy(mess_envoi,ligne_lue);
-		nb_lignes++;
+	FILE* fp=fopen("zerg-rush.jpg","r");
+	while(!feof(fp)){
+		fread(&mess_envoi,sizeof(char),1,fp);
+		cc=write(service,&mess_envoi,sizeof(mess_envoi));
 	}
-	
-	cc=write(service,mess_envoi,sizeof(mess_envoi));
-	printf("message envoyer : %s\n",mess_envoi);
-	
+	close(fp);
 	close(d_sock);
 }

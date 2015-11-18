@@ -16,7 +16,7 @@ int main(){
 
 	hp=gethostbyname("127.0.0.1");
 	memcpy(&serveur.sin_addr,hp->h_addr,hp->h_length);
-	serveur.sin_port=2008;
+	serveur.sin_port=2000;
 	serveur.sin_family=AF_INET;
 	sock=socket(AF_INET,SOCK_STREAM,0);
 
@@ -33,8 +33,12 @@ int main(){
 	printf("Le client a reçu comme nom de fichier : %s \n",mess_recu);
 	//reception du fichier
 	FILE* fp=fopen(mess_recu,"w");
-	read(sock,mess_recu,(sizeof(mess_recu)));
-	printf("Le client a reçu : %s \n",mess_recu);
-	fprintf(fp,mess_recu);
+	strcpy(mess_recu,"");
+	n = read(sock,&mess_recu,sizeof(mess_recu));
+	while(n > 0){
+		fwrite(&mess_recu,sizeof(char),1,fp);
+		n = read(sock,mess_recu,sizeof(mess_recu));
+	}
+	close(fp);
 	close(sock);
 }
