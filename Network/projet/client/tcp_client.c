@@ -6,6 +6,8 @@
 #include <netdb.h>
 #include <netinet/in.h>
 
+#define MAX_SIZE 32 //Because 32 is the size of DATA in TCP datagramme
+
 int main(){
 	
 	struct sockaddr_in serveur;
@@ -16,18 +18,18 @@ int main(){
 
 	hp=gethostbyname("127.0.0.1");
 	memcpy(&serveur.sin_addr,hp->h_addr,hp->h_length);
-	serveur.sin_port=2000;
+	serveur.sin_port=2004;
 	serveur.sin_family=AF_INET;
 	sock=socket(AF_INET,SOCK_STREAM,0);
 
-	printf("Client ready\n");
+	printf("Server ready\n");
 	l=connect(sock,(struct sockaddr *)&serveur,sizeof(serveur));
 	
 	printf("connected%d\n",l);
 	//Confirmation de recuperation
-	strcpy(mess_envoi,"Oui je veux mes dadas");
+	strcpy(mess_envoi,"Oui je veux mes données");
 	cc=write(sock,mess_envoi,BUFSIZ);
-	printf("Client a envoyer %s\n",mess_envoi);
+	printf("Client a envoyer : %s\n",mess_envoi);
 	//reception du nom de fichier
 	read(sock,mess_recu,(sizeof(mess_recu)));
 	printf("Le client a reçu comme nom de fichier : %s \n",mess_recu);
@@ -36,9 +38,9 @@ int main(){
 	strcpy(mess_recu,"");
 	n = read(sock,&mess_recu,sizeof(mess_recu));
 	while(n > 0){
-		fwrite(&mess_recu,sizeof(char),1,fp);
+		fwrite(mess_recu,sizeof(char)*32,32,fp);
 		n = read(sock,mess_recu,sizeof(mess_recu));
 	}
-	close(fp);
+	fclose(fp);
 	close(sock);
 }
