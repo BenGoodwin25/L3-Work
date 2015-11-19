@@ -22,7 +22,7 @@ int main(){
 	serveur.sin_family=AF_INET;
 	sock=socket(AF_INET,SOCK_STREAM,0);
 
-	printf("Server ready\n");
+	printf("Client ready\n");
 	l=connect(sock,(struct sockaddr *)&serveur,sizeof(serveur));
 	
 	printf("connected%d\n",l);
