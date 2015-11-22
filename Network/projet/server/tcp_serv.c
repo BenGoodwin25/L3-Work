@@ -11,15 +11,17 @@
 
 int main(){
 	
-	char mess_recu[BUFSIZ],mess_envoi[BUFSIZ];
-	int pp,d_sock,cc,l;
+	char mess_recu[BUFSIZ],mess_envoi[BUFSIZ],nom[BUFSIZ];
+	int pp,d_sock,cc,l,port;
 	int longe,service;
 	char tab[128];
 	
 	struct sockaddr_in serveur = {AF_INET};
 	struct sockaddr_in client;
 	
-	serveur.sin_port=2004;
+	printf("Indiquez le numéro de port : ");
+	scanf("%i",&port);
+	serveur.sin_port=port;
 	serveur.sin_family=AF_INET;
 	serveur.sin_addr.s_addr=INADDR_ANY;
 	d_sock=socket(AF_INET,SOCK_STREAM,0);
@@ -30,17 +32,15 @@ int main(){
 	l=listen(d_sock,1);
 	longe=sizeof(struct sockaddr_in);
 	service=accept(d_sock,(struct sockaddr *)&client,&longe);
-	printf("Accept =%d\n",service);
-	//Reception de la confirmation
-
-	read(service,mess_recu,BUFSIZ);
-	printf("Le serveur a recu : %s\n",mess_recu);
+	printf("Connected\n");
 	//envoi du nom de fichier
-	strcpy(mess_envoi,"sample.avi");
+	printf("Le nom du fichier : ");
+	scanf("%s",&nom);
+	strcpy(mess_envoi,nom);
 	cc=write(service,mess_envoi,sizeof(mess_envoi));
 	printf("message envoyer : %s\n",mess_envoi);
 	//envoi du fichier
-	FILE* fp=fopen("sample.avi","r");
+	FILE* fp=fopen(nom,"r");
 	if(fp==NULL){
 		fprintf(stderr,"File not Found\n");
 		exit(1);
