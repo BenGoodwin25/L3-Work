@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <fcntl.h>
 
 #define MAX_SIZE 32 //Because 32 is the size of DATA in TCP datagramme
 
@@ -12,13 +13,13 @@ int main(){
 	//initialisation	
 	struct sockaddr_in serveur;
 	struct hostent *hp;
-	char mess_recu[MAX_SIZE],mess_envoi[MAX_SIZE], tab[MAX_SIZE];
+	char nom_recu[32],mess_recu[MAX_SIZE],mess_envoi[MAX_SIZE], tab[MAX_SIZE];
 	int sock,cc,errno,i,j,n,l,d_sock,port;
 	char ip[16];
 	int longe,service;
 	//configuration IP & port
 	printf("Indiquez l'IP : ");
-	scanf("%s",&ip);
+	scanf("%s",ip);
 	hp=gethostbyname(ip);
 	memcpy(&serveur.sin_addr,hp->h_addr,hp->h_length);
 	printf("Indiquez le numéro de port : ");
@@ -36,25 +37,27 @@ int main(){
 	}
 	printf("Connected\n");
 	//reception du nom de fichier
-	read(sock,mess_recu,(sizeof(mess_recu)));
-	printf("Le client a reçu comme nom de fichier : %s \n",mess_recu);
+	read(sock,nom_recu,(sizeof(nom_recu)));
+	printf("Le client a reçu comme nom de fichier : %s \n",nom_recu);
 	//reception du fichier
-	FILE* fp=fopen(mess_recu,"w");
-	if (fp==NULL){//verification
+	//FILE* fp=fopen(mess_recu,"w");
+	int fd=open(nom_recu, O_WRONLY | O_CREAT | O_TRUNC,0777);
+	if (fd==-1){//verification
 		fprintf(stderr,"Error with file name");
 		exit(1);
 	}
 	strcpy(mess_recu,"");//vidage du la variable par précaution
-	n = read(sock,mess_recu,sizeof(mess_recu));
-	int compteur=0+n;
-	while(n > 0){
-		fwrite(mess_recu,sizeof(char),MAX_SIZE,fp);
-		n = read(sock,mess_recu,sizeof(mess_recu));
+	int compteur=0;
+	while(read(sock,mess_recu,16) > 0){
+		//fwrite(mess_recu,sizeof(char),1,fp);
+		n=write(fd,mess_recu,16);
 		compteur+=n;
 	}
-	fclose(fp);//fermeture du fichier
-	read(sock,mess_recu,sizeof(mess_recu));//reception du nombre de caractere
-	printf("Nombre de caractère envoyer =%s\n",mess_recu);
-	printf("Nombre de caractère recu = %i\n",compteur-MAX_SIZE);
+	//fclose(fp);//fermeture du fichier
+	close(fd);
+	strcpy(mess_recu,"");//vidage du la variable par précaution
+	printf("Nombre de caractère recu = %i\n",compteur);
+	//cc = read(sock,mess_recu,6);//reception du nombre de caractere
+	//printf("Nombre de caractère envoyer ='%s' with %d\n",mess_recu,cc);
 	close(sock);//fermeture
 }

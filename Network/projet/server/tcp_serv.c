@@ -5,13 +5,14 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <fcntl.h>
 
 #define MAX_SIZE 32 //32 because 32 is the size of DATA in TCP datagramme
 
 
 int main(){
 	//initialisation
-	char mess_recu[MAX_SIZE],mess_envoi[MAX_SIZE],nom[MAX_SIZE];
+	char nom_envoi[32],mess_recu[MAX_SIZE],mess_envoi[MAX_SIZE],nom[32];
 	int pp,d_sock,cc,l,port;
 	int longe,service;
 	char tab[128];
@@ -35,29 +36,33 @@ int main(){
 	printf("Connected\n");
 	//envoi du nom de fichier
 	printf("Le nom du fichier : ");
-	scanf("%s",&nom);
-	strcpy(mess_envoi,nom);
-	cc=write(service,mess_envoi,sizeof(mess_envoi));
-	printf("message envoyer : %s\n",mess_envoi);
+	scanf("%s",nom);
+	strcpy(nom_envoi,nom);
+	cc=write(service,nom_envoi,sizeof(nom_envoi));
+	printf("message envoyer : %s\n",nom_envoi);
 	//envoi du fichier
-	FILE* fp=fopen(nom,"r");
+	//FILE* fp=fopen(nom,"r");
+	int fd=open(nom,O_RDONLY);
 	int compteur=0;
 	//verification fichier
-	if(fp==NULL){
+	if(fd==-1){
 		fprintf(stderr,"File not Found\n");
 		exit(1);
 	}
 	//envoi
-	while(!feof(fp)){
-		fread(mess_envoi,sizeof(char),MAX_SIZE,fp);
-		cc=write(service,mess_envoi,sizeof(mess_envoi));
+	strcpy(mess_envoi,"");
+	while(read(fd,mess_envoi,16)>0){
+		//fread(mess_envoi,sizeof(char),1,fp);
+		cc=write(service,mess_envoi,16);
 		compteur+=cc;
 	}
 	//fermeture fichier
-	fclose(fp);
+	//fclose(fp);
+	close(fd);
 	//envoi de la taille
+	strcpy(mess_envoi,"");
 	sprintf(mess_envoi,"%d",compteur);
-	write(service,mess_envoi,sizeof(mess_envoi));
+	//write(service,mess_envoi,6);
 	printf("Nombre de caractère envoyer ~= %s\n",mess_envoi);
 	//fermeture socket
 	close(d_sock);
