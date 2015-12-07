@@ -53,7 +53,7 @@ int main(){
 	strcpy(mess_envoi,"");
 	while(read(fd,mess_envoi,16)>0){
 		//fread(mess_envoi,sizeof(char),1,fp);
-		cc=write(service,mess_envoi,16);
+		cc=send(service,mess_envoi,16,0);
 		compteur+=cc;
 	}
 	//fermeture fichier

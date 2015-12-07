@@ -48,7 +48,7 @@ int main(){
 	}
 	strcpy(mess_recu,"");//vidage du la variable par précaution
 	int compteur=0;
-	while(read(sock,mess_recu,16) > 0){
+	while(recv(sock,mess_recu,16,0) > 0){
 		//fwrite(mess_recu,sizeof(char),1,fp);
 		n=write(fd,mess_recu,16);
 		compteur+=n;
