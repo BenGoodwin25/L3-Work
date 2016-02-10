@@ -7,18 +7,15 @@
 
 
 int main(int argc, char *argv[]){
-	struct graph G;
-	automate self;
-	self=construitAutomateExemple();
-	automateToGraph(&G,self);
-	afficheAutomate(self);
-	printGraph(&G);
-	if(langageVide(&G,self)){
-		printf("Le langage est vide\n");
-	}else{
-		printf("Le langage est non vide\n");
-	}
-	char* str=listeTransitions(&G);
+
+	automate a=construitAutomateExemple();
+	automate b=construitAutomateExemple();
+	ajouteTransition(b, 2, 2, 1);
+	automate prod;
+	produit(&prod,a,b);
+	automate c;
+	//determinise(&c,a);
+	
 	return 0;
 }
 
@@ -399,3 +396,146 @@ void deleteNonAccessible(struct graph* graphe, automate self,char* listTransitio
 }
 
 void deleteNonCoAccessible();
+
+void produit(automate* prod,automate a,automate b){
+	prod->size=a.size*b.size;
+	if(a.sizealpha>=b.sizealpha){
+		prod->sizealpha=a.sizealpha;
+	}else{
+		prod->sizealpha=b.sizealpha;
+	}
+	//Je n'ai pas de nom pour les Etats du coup pas de régle de nomage.
+	int i,j;
+	int init=0;
+	prod->initial = (int *) malloc (prod->size * sizeof(int));
+	prod->final = (int *) malloc (prod->size * sizeof(int));
+	for(i=0;i<prod->size;i++){
+		if(init==0 &&(a.initial[i]==1 || b.initial[i]==1)){
+			prod->initial[i]=1;
+			init=1;
+		}
+		if(a.final[i]==1 || b.final[i]==1){
+			prod->final[i]=1;
+		}
+		liste* parcours;
+		for(j=0;j<=prod->size;j++){
+			/*if(a.trans[i][j]!=NULL){// Segfault multiples
+				parcours = a.trans[i][j];
+				while(parcours!=NULL){
+					ajouteTransition(*prod, i, parcours->data, j);
+					parcours=parcours->suiv;
+				}
+			}*/
+			/*if(b.trans[i][j]!=NULL){// Segfault multiples
+				parcours = b.trans[i][j];
+				while(parcours!=NULL){
+					ajouteTransition(*prod, i, parcours->data, j);// Segfault
+					parcours=parcours->suiv;
+				}
+			}*/
+		}
+	}
+}
+
+int intersectionVide(automate A, automate B){
+    //On cherche des transitions à partir des etats initiaux
+	automate prod;
+	produit(&prod,A,B); 
+	if(compteTransitions(&prod)>0){
+		return 0;
+	}else{
+		return 1;
+	}
+}
+
+void determinise(automate* determini, automate originel){
+	int i;
+	for(i = 0; i<originel.size; i++){
+		if(originel.initial[i] == 1){
+			determini->initial[i] = i;
+		}
+	}
+	
+	iliste l;
+	l.tailleVal = 1;
+	l.state = i;
+	l.val[0] = l.state;
+	
+	ifile file;
+	file.debut = &l;
+	file.fin = &l;
+	
+	for(i = 0; i<originel.sizealpha; i++){
+		liste* tmp = originel.trans[l.state][i];
+		int tab[originel.size];
+		int c = 0;
+		while(tmp != NULL){
+			tab[c] = tmp->data;
+			tmp = tmp->suiv;
+			c++;
+			//...
+		}
+		//...
+	}
+}
+
+int estDansFile(ifile f, int* pt, int n){
+	int i;
+	iliste* tmp;
+	tmp=f.debut;
+	while(tmp){
+		if(tmp->tailleVal == n){ 
+			i=0;
+			while(i< n && pt[i]==tmp->val[i]){ 
+				i++;
+			}
+			if(i == n) {
+				return 1;
+			}
+		}
+		tmp=tmp->suiv;
+	}
+	return 0;
+}
+
+void ajouteFile(ifile* f, int* pt,int n){ 
+	int i;
+	iliste* tmp;
+	tmp= (iliste*) malloc(sizeof(iliste));
+	tmp->val=(int*) malloc(n*sizeof(int));
+	for(i=0;i<n;i++){
+		tmp->val[i]=pt[i];
+	}
+	tmp->suiv=NULL;
+	tmp->tailleVal=n;
+	if(f->fin != NULL){
+		tmp->state=f->fin->state+1;
+		f->fin->suiv = tmp;
+		f->fin= tmp;
+		return;
+	}
+	tmp->state=0;
+	f->fin= tmp; 
+	f->debut= tmp;
+}
+
+void afficheFile(ifile f){
+	iliste* pt;
+	int i;
+	int j=0;
+	pt=f.debut;
+	while(pt){
+		printf("-----------------------------\n"); 
+		printf("Element %d \n",pt->state); 
+		for(i=0;i<pt->tailleVal;i++){
+			printf( " %d",pt->val[i]);
+		}
+		pt=pt->suiv;
+		j++;
+		printf("\n");
+	}
+}
+
+void minimaliste(automate mini, automate originel);
+
+

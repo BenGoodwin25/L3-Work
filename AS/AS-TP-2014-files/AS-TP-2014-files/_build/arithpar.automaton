@@ -1,0 +1,792 @@
+State 0:
+start' -> . start [ # ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On start shift to state 9
+-- On expr shift to state 10
+
+State 1:
+expr -> VAR . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> VAR 
+-- On PLUS reduce production expr -> VAR 
+-- On OR reduce production expr -> VAR 
+-- On NEQ reduce production expr -> VAR 
+-- On MINUS reduce production expr -> VAR 
+-- On LT reduce production expr -> VAR 
+-- On LEQ reduce production expr -> VAR 
+-- On GT reduce production expr -> VAR 
+-- On GEQ reduce production expr -> VAR 
+-- On EQ reduce production expr -> VAR 
+-- On EOF reduce production expr -> VAR 
+-- On DIVIDE reduce production expr -> VAR 
+-- On AND reduce production expr -> VAR 
+
+State 2:
+expr -> STRING . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> STRING 
+-- On PLUS reduce production expr -> STRING 
+-- On OR reduce production expr -> STRING 
+-- On NEQ reduce production expr -> STRING 
+-- On MINUS reduce production expr -> STRING 
+-- On LT reduce production expr -> STRING 
+-- On LEQ reduce production expr -> STRING 
+-- On GT reduce production expr -> STRING 
+-- On GEQ reduce production expr -> STRING 
+-- On EQ reduce production expr -> STRING 
+-- On EOF reduce production expr -> STRING 
+-- On DIVIDE reduce production expr -> STRING 
+-- On AND reduce production expr -> STRING 
+
+State 3:
+expr -> NOT . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 8
+
+State 4:
+expr -> MINUS . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 7
+
+State 5:
+expr -> INT . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> INT 
+-- On PLUS reduce production expr -> INT 
+-- On OR reduce production expr -> INT 
+-- On NEQ reduce production expr -> INT 
+-- On MINUS reduce production expr -> INT 
+-- On LT reduce production expr -> INT 
+-- On LEQ reduce production expr -> INT 
+-- On GT reduce production expr -> INT 
+-- On GEQ reduce production expr -> INT 
+-- On EQ reduce production expr -> INT 
+-- On EOF reduce production expr -> INT 
+-- On DIVIDE reduce production expr -> INT 
+-- On AND reduce production expr -> INT 
+
+State 6:
+expr -> FLOAT . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> FLOAT 
+-- On PLUS reduce production expr -> FLOAT 
+-- On OR reduce production expr -> FLOAT 
+-- On NEQ reduce production expr -> FLOAT 
+-- On MINUS reduce production expr -> FLOAT 
+-- On LT reduce production expr -> FLOAT 
+-- On LEQ reduce production expr -> FLOAT 
+-- On GT reduce production expr -> FLOAT 
+-- On GEQ reduce production expr -> FLOAT 
+-- On EQ reduce production expr -> FLOAT 
+-- On EOF reduce production expr -> FLOAT 
+-- On DIVIDE reduce production expr -> FLOAT 
+-- On AND reduce production expr -> FLOAT 
+
+State 7:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> MINUS expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> MINUS expr 
+-- On PLUS reduce production expr -> MINUS expr 
+-- On OR reduce production expr -> MINUS expr 
+-- On NEQ reduce production expr -> MINUS expr 
+-- On MINUS reduce production expr -> MINUS expr 
+-- On LT reduce production expr -> MINUS expr 
+-- On LEQ reduce production expr -> MINUS expr 
+-- On GT reduce production expr -> MINUS expr 
+-- On GEQ reduce production expr -> MINUS expr 
+-- On EQ reduce production expr -> MINUS expr 
+-- On EOF reduce production expr -> MINUS expr 
+-- On DIVIDE reduce production expr -> MINUS expr 
+-- On AND reduce production expr -> MINUS expr 
+
+State 8:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> NOT expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> NOT expr 
+-- On PLUS reduce production expr -> NOT expr 
+-- On OR reduce production expr -> NOT expr 
+-- On NEQ reduce production expr -> NOT expr 
+-- On MINUS reduce production expr -> NOT expr 
+-- On LT reduce production expr -> NOT expr 
+-- On LEQ reduce production expr -> NOT expr 
+-- On GT reduce production expr -> NOT expr 
+-- On GEQ reduce production expr -> NOT expr 
+-- On EQ reduce production expr -> NOT expr 
+-- On EOF reduce production expr -> NOT expr 
+-- On DIVIDE reduce production expr -> NOT expr 
+-- On AND reduce production expr -> NOT expr 
+
+State 9:
+start' -> start . [ # ]
+-- On # accept start
+
+State 10:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+start -> expr . EOF [ # ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On OR shift to state 17
+-- On NEQ shift to state 19
+-- On MINUS shift to state 21
+-- On LT shift to state 23
+-- On LEQ shift to state 25
+-- On GT shift to state 27
+-- On GEQ shift to state 29
+-- On EQ shift to state 31
+-- On EOF shift to state 33
+-- On DIVIDE shift to state 15
+-- On AND shift to state 34
+
+State 11:
+expr -> expr TIMES . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 12
+
+State 12:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr TIMES expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> expr TIMES expr 
+-- On PLUS reduce production expr -> expr TIMES expr 
+-- On OR reduce production expr -> expr TIMES expr 
+-- On NEQ reduce production expr -> expr TIMES expr 
+-- On MINUS reduce production expr -> expr TIMES expr 
+-- On LT reduce production expr -> expr TIMES expr 
+-- On LEQ reduce production expr -> expr TIMES expr 
+-- On GT reduce production expr -> expr TIMES expr 
+-- On GEQ reduce production expr -> expr TIMES expr 
+-- On EQ reduce production expr -> expr TIMES expr 
+-- On EOF reduce production expr -> expr TIMES expr 
+-- On DIVIDE reduce production expr -> expr TIMES expr 
+-- On AND reduce production expr -> expr TIMES expr 
+
+State 13:
+expr -> expr PLUS . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 14
+
+State 14:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr PLUS expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On DIVIDE shift to state 15
+-- On PLUS reduce production expr -> expr PLUS expr 
+-- On OR reduce production expr -> expr PLUS expr 
+-- On NEQ reduce production expr -> expr PLUS expr 
+-- On MINUS reduce production expr -> expr PLUS expr 
+-- On LT reduce production expr -> expr PLUS expr 
+-- On LEQ reduce production expr -> expr PLUS expr 
+-- On GT reduce production expr -> expr PLUS expr 
+-- On GEQ reduce production expr -> expr PLUS expr 
+-- On EQ reduce production expr -> expr PLUS expr 
+-- On EOF reduce production expr -> expr PLUS expr 
+-- On AND reduce production expr -> expr PLUS expr 
+
+State 15:
+expr -> expr DIVIDE . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 16
+
+State 16:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr DIVIDE expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES reduce production expr -> expr DIVIDE expr 
+-- On PLUS reduce production expr -> expr DIVIDE expr 
+-- On OR reduce production expr -> expr DIVIDE expr 
+-- On NEQ reduce production expr -> expr DIVIDE expr 
+-- On MINUS reduce production expr -> expr DIVIDE expr 
+-- On LT reduce production expr -> expr DIVIDE expr 
+-- On LEQ reduce production expr -> expr DIVIDE expr 
+-- On GT reduce production expr -> expr DIVIDE expr 
+-- On GEQ reduce production expr -> expr DIVIDE expr 
+-- On EQ reduce production expr -> expr DIVIDE expr 
+-- On EOF reduce production expr -> expr DIVIDE expr 
+-- On DIVIDE reduce production expr -> expr DIVIDE expr 
+-- On AND reduce production expr -> expr DIVIDE expr 
+
+State 17:
+expr -> expr OR . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 18
+
+State 18:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr OR expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On NEQ shift to state 19
+-- On MINUS shift to state 21
+-- On LT shift to state 23
+-- On LEQ shift to state 25
+-- On GT shift to state 27
+-- On GEQ shift to state 29
+-- On EQ shift to state 31
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr OR expr 
+-- On EOF reduce production expr -> expr OR expr 
+-- On AND reduce production expr -> expr OR expr 
+
+State 19:
+expr -> expr NEQ . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 20
+
+State 20:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr NEQ expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On LT shift to state 23
+-- On LEQ shift to state 25
+-- On GT shift to state 27
+-- On GEQ shift to state 29
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr NEQ expr 
+-- On NEQ reduce production expr -> expr NEQ expr 
+-- On EQ reduce production expr -> expr NEQ expr 
+-- On EOF reduce production expr -> expr NEQ expr 
+-- On AND reduce production expr -> expr NEQ expr 
+
+State 21:
+expr -> expr MINUS . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 22
+
+State 22:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr MINUS expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On DIVIDE shift to state 15
+-- On PLUS reduce production expr -> expr MINUS expr 
+-- On OR reduce production expr -> expr MINUS expr 
+-- On NEQ reduce production expr -> expr MINUS expr 
+-- On MINUS reduce production expr -> expr MINUS expr 
+-- On LT reduce production expr -> expr MINUS expr 
+-- On LEQ reduce production expr -> expr MINUS expr 
+-- On GT reduce production expr -> expr MINUS expr 
+-- On GEQ reduce production expr -> expr MINUS expr 
+-- On EQ reduce production expr -> expr MINUS expr 
+-- On EOF reduce production expr -> expr MINUS expr 
+-- On AND reduce production expr -> expr MINUS expr 
+
+State 23:
+expr -> expr LT . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 24
+
+State 24:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr LT expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr LT expr 
+-- On NEQ reduce production expr -> expr LT expr 
+-- On LT reduce production expr -> expr LT expr 
+-- On LEQ reduce production expr -> expr LT expr 
+-- On GT reduce production expr -> expr LT expr 
+-- On GEQ reduce production expr -> expr LT expr 
+-- On EQ reduce production expr -> expr LT expr 
+-- On EOF reduce production expr -> expr LT expr 
+-- On AND reduce production expr -> expr LT expr 
+
+State 25:
+expr -> expr LEQ . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 26
+
+State 26:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr LEQ expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr LEQ expr 
+-- On NEQ reduce production expr -> expr LEQ expr 
+-- On LT reduce production expr -> expr LEQ expr 
+-- On LEQ reduce production expr -> expr LEQ expr 
+-- On GT reduce production expr -> expr LEQ expr 
+-- On GEQ reduce production expr -> expr LEQ expr 
+-- On EQ reduce production expr -> expr LEQ expr 
+-- On EOF reduce production expr -> expr LEQ expr 
+-- On AND reduce production expr -> expr LEQ expr 
+
+State 27:
+expr -> expr GT . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 28
+
+State 28:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr GT expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr GT expr 
+-- On NEQ reduce production expr -> expr GT expr 
+-- On LT reduce production expr -> expr GT expr 
+-- On LEQ reduce production expr -> expr GT expr 
+-- On GT reduce production expr -> expr GT expr 
+-- On GEQ reduce production expr -> expr GT expr 
+-- On EQ reduce production expr -> expr GT expr 
+-- On EOF reduce production expr -> expr GT expr 
+-- On AND reduce production expr -> expr GT expr 
+
+State 29:
+expr -> expr GEQ . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 30
+
+State 30:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr GEQ expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr GEQ expr 
+-- On NEQ reduce production expr -> expr GEQ expr 
+-- On LT reduce production expr -> expr GEQ expr 
+-- On LEQ reduce production expr -> expr GEQ expr 
+-- On GT reduce production expr -> expr GEQ expr 
+-- On GEQ reduce production expr -> expr GEQ expr 
+-- On EQ reduce production expr -> expr GEQ expr 
+-- On EOF reduce production expr -> expr GEQ expr 
+-- On AND reduce production expr -> expr GEQ expr 
+
+State 31:
+expr -> expr EQ . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 32
+
+State 32:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr EQ expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On MINUS shift to state 21
+-- On LT shift to state 23
+-- On LEQ shift to state 25
+-- On GT shift to state 27
+-- On GEQ shift to state 29
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr EQ expr 
+-- On NEQ reduce production expr -> expr EQ expr 
+-- On EQ reduce production expr -> expr EQ expr 
+-- On EOF reduce production expr -> expr EQ expr 
+-- On AND reduce production expr -> expr EQ expr 
+
+State 33:
+start -> expr EOF . [ # ]
+-- On # reduce production start -> expr EOF 
+
+State 34:
+expr -> expr AND . expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On VAR shift to state 1
+-- On STRING shift to state 2
+-- On NOT shift to state 3
+-- On MINUS shift to state 4
+-- On INT shift to state 5
+-- On FLOAT shift to state 6
+-- On expr shift to state 35
+
+State 35:
+expr -> expr . PLUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . TIMES expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . MINUS expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . DIVIDE expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . EQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . NEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GT expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . LEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . GEQ expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . AND expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr AND expr . [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+expr -> expr . OR expr [ TIMES PLUS OR NEQ MINUS LT LEQ GT GEQ EQ EOF DIVIDE AND ]
+-- On TIMES shift to state 11
+-- On PLUS shift to state 13
+-- On NEQ shift to state 19
+-- On MINUS shift to state 21
+-- On LT shift to state 23
+-- On LEQ shift to state 25
+-- On GT shift to state 27
+-- On GEQ shift to state 29
+-- On EQ shift to state 31
+-- On DIVIDE shift to state 15
+-- On OR reduce production expr -> expr AND expr 
+-- On EOF reduce production expr -> expr AND expr 
+-- On AND reduce production expr -> expr AND expr 
+
+State 36:
+start1' -> . start1 [ # ]
+-- On INT shift to state 37
+-- On start1 shift to state 38
+-- On int_plus_left shift to state 39
+
+State 37:
+int_plus_left -> INT . [ PLUS INT ]
+-- On PLUS reduce production int_plus_left -> INT 
+-- On INT reduce production int_plus_left -> INT 
+
+State 38:
+start1' -> start1 . [ # ]
+-- On # accept start1
+
+State 39:
+int_plus_left -> int_plus_left . PLUS INT [ PLUS INT ]
+start1 -> int_plus_left . int_plus_right manual_arith_plus_r manual_arith_plus_l EOF [ # ]
+-- On PLUS shift to state 40
+-- On INT shift to state 42
+-- On int_plus_right shift to state 45
+
+State 40:
+int_plus_left -> int_plus_left PLUS . INT [ PLUS INT ]
+-- On INT shift to state 41
+
+State 41:
+int_plus_left -> int_plus_left PLUS INT . [ PLUS INT ]
+-- On PLUS reduce production int_plus_left -> int_plus_left PLUS INT 
+-- On INT reduce production int_plus_left -> int_plus_left PLUS INT 
+
+State 42:
+int_plus_right -> INT . [ INT ]
+int_plus_right -> INT . PLUS int_plus_right [ INT ]
+-- On PLUS shift to state 43
+-- On INT reduce production int_plus_right -> INT 
+
+State 43:
+int_plus_right -> INT PLUS . int_plus_right [ INT ]
+-- On INT shift to state 42
+-- On int_plus_right shift to state 44
+
+State 44:
+int_plus_right -> INT PLUS int_plus_right . [ INT ]
+-- On INT reduce production int_plus_right -> INT PLUS int_plus_right 
+
+State 45:
+start1 -> int_plus_left int_plus_right . manual_arith_plus_r manual_arith_plus_l EOF [ # ]
+-- On INT shift to state 46
+-- On manual_arith_times_r shift to state 47
+-- On manual_arith_plus_r shift to state 53
+-- On manual_arith_atom shift to state 50
+
+State 46:
+manual_arith_atom -> INT . [ TIMES PLUS INT EOF ]
+-- On TIMES reduce production manual_arith_atom -> INT 
+-- On PLUS reduce production manual_arith_atom -> INT 
+-- On INT reduce production manual_arith_atom -> INT 
+-- On EOF reduce production manual_arith_atom -> INT 
+
+State 47:
+manual_arith_plus_r -> manual_arith_times_r . PLUS manual_arith_plus_r [ INT ]
+manual_arith_plus_r -> manual_arith_times_r . [ INT ]
+-- On PLUS shift to state 48
+-- On INT reduce production manual_arith_plus_r -> manual_arith_times_r 
+
+State 48:
+manual_arith_plus_r -> manual_arith_times_r PLUS . manual_arith_plus_r [ INT ]
+-- On INT shift to state 46
+-- On manual_arith_times_r shift to state 47
+-- On manual_arith_plus_r shift to state 49
+-- On manual_arith_atom shift to state 50
+
+State 49:
+manual_arith_plus_r -> manual_arith_times_r PLUS manual_arith_plus_r . [ INT ]
+-- On INT reduce production manual_arith_plus_r -> manual_arith_times_r PLUS manual_arith_plus_r 
+
+State 50:
+manual_arith_times_r -> manual_arith_atom . TIMES manual_arith_times_r [ PLUS INT ]
+manual_arith_times_r -> manual_arith_atom . [ PLUS INT ]
+-- On TIMES shift to state 51
+-- On PLUS reduce production manual_arith_times_r -> manual_arith_atom 
+-- On INT reduce production manual_arith_times_r -> manual_arith_atom 
+
+State 51:
+manual_arith_times_r -> manual_arith_atom TIMES . manual_arith_times_r [ PLUS INT ]
+-- On INT shift to state 46
+-- On manual_arith_times_r shift to state 52
+-- On manual_arith_atom shift to state 50
+
+State 52:
+manual_arith_times_r -> manual_arith_atom TIMES manual_arith_times_r . [ PLUS INT ]
+-- On PLUS reduce production manual_arith_times_r -> manual_arith_atom TIMES manual_arith_times_r 
+-- On INT reduce production manual_arith_times_r -> manual_arith_atom TIMES manual_arith_times_r 
+
+State 53:
+start1 -> int_plus_left int_plus_right manual_arith_plus_r . manual_arith_plus_l EOF [ # ]
+-- On INT shift to state 46
+-- On manual_arith_times_l shift to state 54
+-- On manual_arith_plus_l shift to state 57
+-- On manual_arith_atom shift to state 60
+
+State 54:
+manual_arith_plus_l -> manual_arith_times_l . [ PLUS EOF ]
+manual_arith_times_l -> manual_arith_times_l . TIMES manual_arith_atom [ TIMES PLUS EOF ]
+-- On TIMES shift to state 55
+-- On PLUS reduce production manual_arith_plus_l -> manual_arith_times_l 
+-- On EOF reduce production manual_arith_plus_l -> manual_arith_times_l 
+
+State 55:
+manual_arith_times_l -> manual_arith_times_l TIMES . manual_arith_atom [ TIMES PLUS EOF ]
+-- On INT shift to state 46
+-- On manual_arith_atom shift to state 56
+
+State 56:
+manual_arith_times_l -> manual_arith_times_l TIMES manual_arith_atom . [ TIMES PLUS EOF ]
+-- On TIMES reduce production manual_arith_times_l -> manual_arith_times_l TIMES manual_arith_atom 
+-- On PLUS reduce production manual_arith_times_l -> manual_arith_times_l TIMES manual_arith_atom 
+-- On EOF reduce production manual_arith_times_l -> manual_arith_times_l TIMES manual_arith_atom 
+
+State 57:
+manual_arith_plus_l -> manual_arith_plus_l . PLUS manual_arith_times_l [ PLUS EOF ]
+start1 -> int_plus_left int_plus_right manual_arith_plus_r manual_arith_plus_l . EOF [ # ]
+-- On PLUS shift to state 58
+-- On EOF shift to state 61
+
+State 58:
+manual_arith_plus_l -> manual_arith_plus_l PLUS . manual_arith_times_l [ PLUS EOF ]
+-- On INT shift to state 46
+-- On manual_arith_times_l shift to state 59
+-- On manual_arith_atom shift to state 60
+
+State 59:
+manual_arith_plus_l -> manual_arith_plus_l PLUS manual_arith_times_l . [ PLUS EOF ]
+manual_arith_times_l -> manual_arith_times_l . TIMES manual_arith_atom [ TIMES PLUS EOF ]
+-- On TIMES shift to state 55
+-- On PLUS reduce production manual_arith_plus_l -> manual_arith_plus_l PLUS manual_arith_times_l 
+-- On EOF reduce production manual_arith_plus_l -> manual_arith_plus_l PLUS manual_arith_times_l 
+
+State 60:
+manual_arith_times_l -> manual_arith_atom . [ TIMES PLUS EOF ]
+-- On TIMES reduce production manual_arith_times_l -> manual_arith_atom 
+-- On PLUS reduce production manual_arith_times_l -> manual_arith_atom 
+-- On EOF reduce production manual_arith_times_l -> manual_arith_atom 
+
+State 61:
+start1 -> int_plus_left int_plus_right manual_arith_plus_r manual_arith_plus_l EOF . [ # ]
+-- On # reduce production start1 -> int_plus_left int_plus_right manual_arith_plus_r manual_arith_plus_l EOF 
+

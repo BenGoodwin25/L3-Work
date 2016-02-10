@@ -1,0 +1,27 @@
+4)
+Le * est prioritaire sur le +.(donc correct)
+
+5)
+L’ordre est de gauche à droite.
+
+6)
+	4) l’ordre n’est plus respecté(opération la plus à gauche * équivalent à + dans l’ordre de priorité)
+	5) L’ordre est cette fois de droite à gauche, mais cela ne change rien.
+
+7)
+Le + est prioritaire au * ici.
+
+8) et 9)
+Les fonctions était déjà écrite dans le fichier :
+
+int_plus_left:
+| i=INT                       { Int i }
+| l=int_plus_left PLUS r=INT  { Bin (Plus, l, Int r) }
+
+
+int_plus_right:
+| i=INT                       { Int i }
+| l=INT PLUS r=int_plus_right { Bin (Plus, Int l, r) }
+Je ne suis pas sûr si elle sont déjà implémenter, et je ne sais pas comment vérifier cela.
+
+10) la propriété la plus évidante sur les opérations est la présence de deux valeurs, une à droite et une à gauche.

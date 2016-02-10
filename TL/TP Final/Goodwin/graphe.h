@@ -19,7 +19,7 @@ struct graph{
 };
 
 typedef struct s_iliste{
-	int val;
+	int* val;
 	int tailleVal;
 	int state;
 	struct s_iliste* suiv;
@@ -44,5 +44,12 @@ void deleteDoubloon(char *self);
 int estDansFile(ifile f, int* pt, int n);
 void ajouteFile(ifile* f, int* pt, int n);
 void afficheFile(ifile f);
+void produit(automate* prod, automate a, automate b);
+void determinise(automate* determini, automate originel);
+int estDansFile(ifile f, int* pt, int n);
+void ajouteFile(ifile* f, int* pt,int n);
+void afficheFile(ifile f);
+void minimaliste(automate mini, automate originel);
+
 
 #endif

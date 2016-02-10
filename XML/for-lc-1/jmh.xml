@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE enseignant SYSTEM "enseignant.dtd">
+
+<gisdm:enseignant xmlns:gisdm="http://gisdm.univ-fcomte.fr">
+  <prenom gisdm:lang="fr" xmlns="http://lifc.univ-fcomte.fr">Jean-Michel
+      <surnom from="Nancy">Le Mec</surnom>
+  </prenom>
+  <nom>Hufflen</nom>
+</gisdm:enseignant>

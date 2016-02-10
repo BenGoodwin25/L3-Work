@@ -7,18 +7,22 @@
 
 
 int main(int argc, char *argv[]){
+	
 	struct graph G;
 	automate self;
 	self=construitAutomateExemple();
 	automateToGraph(&G,self);
-	afficheAutomate(self);
+	//afficheAutomate(self);
 	printGraph(&G);
 	if(langageVide(&G,self)){
 		printf("Le langage est vide\n");
 	}else{
 		printf("Le langage est non vide\n");
 	}
+
 	char* str=listeTransitions(&G);
+	
+
 	return 0;
 }
 
@@ -50,6 +54,7 @@ int path(struct graph* graphe, int sommet1, int sommet2){
 	tailAll(graphe);
 	printf("Tail :\n");
 	printGraph(graphe);
+	
 	branchFrom(graphe, sommet1);
 	printf("Branch from sommet %d :\n",graphe->sommet[sommet1].data);
 	printGraph(graphe);
@@ -61,7 +66,7 @@ int path(struct graph* graphe, int sommet1, int sommet2){
 }
 
 int visit(struct graph* graphe, int sommet1){
-	return 0;
+	return 54;
 }
 
 void tailAll(struct graph* graphe){

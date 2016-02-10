@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT gisdm:enseignant  (prenom,nom)>
+<!ELEMENT prenom            (#PCDATA|surnom)*>
+<!ELEMENT nom               (#PCDATA)>
+<!ELEMENT surnom            (#PCDATA)>
+
+<!ATTLIST gisdm:enseignant  professionnel (oui | non) "non"
+                            xmlns:gisdm   CDATA       #IMPLIED>
+<!ATTLIST prenom            gisdm:lang    NMTOKEN     #IMPLIED
+                            xmlns         CDATA       #IMPLIED>
+<!ATTLIST surnom            from          CDATA       #IMPLIED>

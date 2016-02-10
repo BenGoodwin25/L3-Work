@@ -18,18 +18,6 @@ struct graph{
 	struct list sommet[MAX_SIZE];
 };
 
-typedef struct s_iliste{
-	int val;
-	int tailleVal;
-	int state;
-	struct s_iliste* suiv;
-}iliste;
-
-typedef struct{
-	iliste* debut;
-	iliste* fin;
-}ifile;
-
 
 char* printState(enum state);
 void printGraph(struct graph* graphe);
@@ -41,8 +29,5 @@ void automateToGraph(struct graph* graphe, automate self);
 int langageVide(struct graph* graphe, automate self);
 char* listeTransitions(struct graph* graphe);
 void deleteDoubloon(char *self);
-int estDansFile(ifile f, int* pt, int n);
-void ajouteFile(ifile* f, int* pt, int n);
-void afficheFile(ifile f);
 
 #endif

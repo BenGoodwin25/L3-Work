@@ -1,0 +1,36 @@
+digraph G {
+orientation = landscape;
+rankdir = LR;
+ratio = compress;
+nt0 [ label="start1'" ] ;
+nt1 [ label="start'" ] ;
+nt2 [ label="start1" ] ;
+nt3 [ label="start" ] ;
+nt4 [ label="manual_arith_times_r" ] ;
+nt5 [ label="manual_arith_times_l" ] ;
+nt6 [ label="manual_arith_plus_r" ] ;
+nt7 [ label="manual_arith_plus_l" ] ;
+nt8 [ label="manual_arith_atom" ] ;
+nt9 [ label="int_plus_right" ] ;
+nt10 [ label="int_plus_left" ] ;
+nt11 [ label="expr" ] ;
+nt0 -> nt2 [ label="" ] ;
+nt1 -> nt3 [ label="" ] ;
+nt2 -> nt6 [ label="" ] ;
+nt2 -> nt7 [ label="" ] ;
+nt2 -> nt9 [ label="" ] ;
+nt2 -> nt10 [ label="" ] ;
+nt3 -> nt11 [ label="" ] ;
+nt4 -> nt4 [ label="" ] ;
+nt4 -> nt8 [ label="" ] ;
+nt5 -> nt5 [ label="" ] ;
+nt5 -> nt8 [ label="" ] ;
+nt6 -> nt4 [ label="" ] ;
+nt6 -> nt6 [ label="" ] ;
+nt7 -> nt5 [ label="" ] ;
+nt7 -> nt7 [ label="" ] ;
+nt9 -> nt9 [ label="" ] ;
+nt10 -> nt10 [ label="" ] ;
+nt11 -> nt11 [ label="" ] ;
+
+}
