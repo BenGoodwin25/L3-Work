@@ -36,7 +36,14 @@ rule token = parse
 | "&&"                  { AND }
 | "||"                  { OR }
 | "~"                   { NOT }
-
+| "true"								{ TRUE }
+| "false"								{ FALSE }
+| "("										{ PO }
+| ")"										{ PF }
+| "["										{ CO }
+|	"]"										{ CF }
+| "="										{ AFFECT }
+| ";"										{ SEMI }
 
 | decimal as i          { INT (ios i) }
 | hexa as h             { INT (ios h) }

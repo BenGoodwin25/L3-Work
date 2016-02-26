@@ -1,30 +1,30 @@
 ### Starting build.
 # Target: arith.ml.depends, tags: { extension:ml, file:arith.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep -modules arith.ml > arith.ml.depends
+/usr/bin/ocamldep -modules arith.ml > arith.ml.depends # cached
 # Target: arithAST.ml.depends, tags: { extension:ml, file:arithAST.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep -modules arithAST.ml > arithAST.ml.depends
+/usr/bin/ocamldep -modules arithAST.ml > arithAST.ml.depends # cached
 # Target: helper.ml.depends, tags: { extension:ml, file:helper.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep -modules helper.ml > helper.ml.depends
+/usr/bin/ocamldep -modules helper.ml > helper.ml.depends # cached
 # Target: helper.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:helper.cmo, file:helper.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc -c -g -o helper.cmo helper.ml
-# Target: arithlex.mll, tags: { extension:mll, file:arithlex.mll, lexer, ocaml, ocamllex, quiet }
-/usr/bin/ocamllex -q arithlex.mll
-# Target: arithlex.ml.depends, tags: { extension:ml, file:arithlex.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep -modules arithlex.ml > arithlex.ml.depends
+/usr/bin/ocamlc -c -g -o helper.cmo helper.ml # cached
 # Target: arithAST.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:arithAST.cmo, file:arithAST.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc -c -g -o arithAST.cmo arithAST.ml
+/usr/bin/ocamlc -c -g -o arithAST.cmo arithAST.ml # cached
+# Target: arithlex.mll, tags: { extension:mll, file:arithlex.mll, lexer, ocaml, ocamllex, quiet }
+/usr/bin/ocamllex -q arithlex.mll # cached
+# Target: arithlex.ml.depends, tags: { extension:ml, file:arithlex.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep -modules arithlex.ml > arithlex.ml.depends # cached
 # Target: arithpar.mly.depends, tags: { extension:mly, file:arithpar.mly, infer, menhir_ocamldep, ocaml, ocamldep, quiet }
 menhir --raw-depend --ocamldep '/usr/bin/ocamldep -modules' arithpar.mly > arithpar.mly.depends
 # Target: arithpar.mly, tags: { byte, compile, extension:ml, extension:mly, file:arithpar.ml, file:arithpar.mly, infer, menhir, ocaml, parser, quiet }
 menhir --ocamlc '/usr/bin/ocamlc -g' -v --trace --graph --infer arithpar.mly
 # Target: arithpar.mli.depends, tags: { extension:mli, file:arithpar.mli, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep -modules arithpar.mli > arithpar.mli.depends
+/usr/bin/ocamldep -modules arithpar.mli > arithpar.mli.depends # cached
 # Target: arithpar.cmi, tags: { byte, compile, extension:mli, file:arithpar.mli, interf, ocaml, quiet }
-/usr/bin/ocamlc -c -g -o arithpar.cmi arithpar.mli
+/usr/bin/ocamlc -c -g -o arithpar.cmi arithpar.mli # cached
 # Target: arithlex.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:arithlex.cmo, file:arithlex.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc -c -g -o arithlex.cmo arithlex.ml
+/usr/bin/ocamlc -c -g -o arithlex.cmo arithlex.ml # cached
 # Target: arith.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:arith.cmo, file:arith.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc -c -g -o arith.cmo arith.ml
+/usr/bin/ocamlc -c -g -o arith.cmo arith.ml # cached
 # Target: arithpar.ml.depends, tags: { extension:ml, file:arithpar.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep -modules arithpar.ml > arithpar.ml.depends
 # Target: arithpar.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:arithpar.cmo, file:arithpar.ml, implem, ocaml, quiet }
