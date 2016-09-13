@@ -1,4 +1,6 @@
-#! /usr/bin/python3.4
+#! /usr/bin/python3.5
+
+import sys,os
 
 #Fonction
 def creatingAlphaDict():
@@ -24,12 +26,19 @@ def gettingKey(c):
 
 #main
 NbOfEachLetter=creatingAlphaDict()
-with open("cipher","r") as cipher:
-    for line in cipher:  
-        for char in line: 
+namefile = sys.argv[1]
+with open(namefile,"r") as cipher:
+    for line in cipher:
+        for char in line:
             addingRecurentLetter(NbOfEachLetter,char)
 
 c=gettingMostUsedLetter(NbOfEachLetter)
 print("The Most used letter is ",c)
-print("The Key is : ",gettingKey(c))
+key=gettingKey(c)
+print("The Key is : ",key)
 cipher.close()
+os.system(("./caesar_decrypt " + str(key) + " < cipher"))
+answer=input("is this okay ?(y/n)")
+if answer == 'y':
+    os.system(("./caesar_decrypt " + str(key) + " < cipher > plain"))
+
