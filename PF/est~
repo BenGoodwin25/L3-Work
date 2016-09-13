@@ -1,0 +1,3 @@
+#lang racket
+(+ 7 8)
+(define pi 3.14)
