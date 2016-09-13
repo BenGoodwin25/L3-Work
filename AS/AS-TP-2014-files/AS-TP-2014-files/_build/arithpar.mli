@@ -3,9 +3,13 @@
 
 type token = 
   | VAR of (string)
+  | TRUE
   | TIMES
   | STRING of (string)
+  | SEMI
+  | PO
   | PLUS
+  | PF
   | OR
   | NOT
   | NEQ
@@ -16,10 +20,14 @@ type token =
   | GT
   | GEQ
   | FLOAT of (float)
+  | FALSE
   | EQ
   | EOF
   | DIVIDE
+  | CO
+  | CF
   | AND
+  | AFFECT
 
 (* This exception is raised by the monolithic API functions. *)
 

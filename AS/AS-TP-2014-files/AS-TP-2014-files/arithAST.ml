@@ -16,6 +16,11 @@ type t =
   | Bin of op * t * t
   | Un  of uop * t
   | Dummy of string * t list (* put a bunch of trees together *)
+  | True
+  | False
+  | Index of string * t
+  | Assign of t * t
+  | Stmts of t list
 
 
 let str_of_op = function
@@ -43,4 +48,8 @@ let rec dot = function
   | Bin (o,l,r) -> Dot.N (str_of_op o, [dot l; dot r])
   | Un (o,t) -> Dot.N (str_of_uop o, [dot t])
   | Dummy (s,l) -> Dot.N (spf "<%s>" s, map dot l)
-
+	| True -> Dot.N ("#t", [])
+	| False -> Dot.N ("#f", [])
+	| Index (id,x) -> Dot.N (id^"[.]", [dot x])
+	| Assign (l,r) -> Dot.N (":=", [dot l; dot r])
+	| Stmts l -> Dot.N ("<stmts>", map dot l)

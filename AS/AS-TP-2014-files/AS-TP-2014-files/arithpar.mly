@@ -10,7 +10,8 @@ open ArithAST
 %token EOF
   PLUS TIMES MINUS DIVIDE
   NEQ EQ LEQ GEQ LT GT
-  AND OR NOT
+  AND OR NOT FALSE TRUE
+  CO CF PO PF AFFECT SEMI
 %token<int> INT
 %token<float> FLOAT
 %token<string> STRING VAR
@@ -30,8 +31,10 @@ start1: /* test assocs and precedences */
 int_plus_left int_plus_right manual_arith_plus_r manual_arith_plus_l EOF
 { Dummy ("assocs and precs", [$1;$2;$3;$4]) }
 
-start: expr EOF { $1 } /* YACC-style indexing $1, $2, etc */
-
+start: 
+| expr EOF { $1 } /* YACC-style indexing $1, $2, etc */
+| stmt EOF { $1 }
+| stmts EOF { $1 }
 
 expr:
 | i=INT                 { Int i }
@@ -45,6 +48,19 @@ expr:
 | e=bin_expr            { e }
 | MINUS t=expr          { Un (UMinus,t) }       %prec UMINUS
 | NOT   t=expr          { Un (Not,t) }
+| TRUE									{ True }
+| FALSE									{ False }
+| v=VAR CO t=expr CF		{ Index(v,t) }
+| PO t=expr PF					{ t }
+
+stmt:
+| v=VAR AFFECT t=expr		{ Assign(Var v,t) }
+
+stmts: l=stmts_inner 		{ Stmts l }
+
+stmts_inner: 
+| { [] } 
+| s=stmt SEMI ss=stmts_inner { s::ss }
 
 /* %inline is Menhir-specific, though other tools might have equivalent
  * functions. It does what you would expect, and without it you can't
