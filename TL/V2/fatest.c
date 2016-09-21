@@ -8,7 +8,7 @@ int main(){
   fa_set_state_final(&tomate, 4);
   fa_pretty_print(&tomate, stdout);
   //fa_destroy(&tomate);
-  fa_add_transition(&tomate, 0, 'a', 1);
+  //fa_add_transition(&tomate, 0, 'a', 1);
   //fa_pretty_print(&tomate, stdout);
   return 1;
 }

@@ -26,15 +26,15 @@ struct state {
 };
 */
 
-/*
+
 struct state_set {
   size_t size;
   size_t capacity;
   size_t *states;
 };
-*/
 
 
+/*
 struct state_node {
   size_t state;
   struct state_node *next;
@@ -43,7 +43,7 @@ struct state_node {
 struct state_set {
   struct state_node *first;
 };
-
+*/
 
 
 //                    Fonctions

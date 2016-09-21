@@ -3,7 +3,7 @@
 
 
 void fa_create(struct fa *self, size_t alpha_count, size_t state_count){
-  int i;
+  int i,f;
   self->alpha_count=alpha_count;
   self->state_count=state_count;
 
@@ -16,6 +16,14 @@ void fa_create(struct fa *self, size_t alpha_count, size_t state_count){
     self->final_states[i]=false;
   }
 
+  self->transitions=(struct state_set**)malloc(self->state_count*sizeof(size_t) +
+                                               self->alpha_count*sizeof(size_t));
+  for(i=0;i<self->state_count;i++){
+    for(f=0;f<self->alpha_count;f++){
+      //self->transitions[i][f].capacity = self->alpha_count;
+      //self->transitions[i][f].size = 0;
+    }
+  }
 }
 
 void fa_destroy(struct fa *self){
@@ -23,6 +31,7 @@ void fa_destroy(struct fa *self){
   self->state_count=0;
   free(self->initial_states);
   free(self->final_states);
+  free(self->transitions);
 }
 
 void fa_set_state_initial(struct fa *self, size_t state){
@@ -34,12 +43,13 @@ void fa_set_state_final(struct fa *self, size_t state){
 }
 
 void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){
-  ajouteListe(&self->transitions[from][alpha-'a'], to);
+  //ajouteListe(&self->transitions[from][alpha-'a'], to);
+  //self->transitions[from][to]->size+=1;
 }
 
 void ajouteListe(struct state_set* l, size_t q){
-  struct state_set* ptl;
-  struct state_set* tmp;
+  /*struct state_set* ptl;
+  struct state_set* tmp;*/
   /*
   ptl=*l;
   if(!ptl){
