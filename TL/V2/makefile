@@ -1,5 +1,16 @@
-all: TP1
+CC=gcc
+CFLAGS=-g -Wall -std=c99
+SRC=$(wildcard *.c)
+OBJ=$(SRC:.c=.o)
+EXEC=fatest
 
-TP1: TP1.c
-	gcc TP1.c -Wall -o TP1 -std=c99
+all: $(EXEC)
 
+$(EXEC): $(OBJ)
+	$(CC) -o $@ $(OBJ) $(CFLAGS)
+
+%.o: %.c %.h
+	$(CC) -o $@ $(CFLAGS) -c $<
+
+clean:
+	rm *.o; rm $(EXEC)

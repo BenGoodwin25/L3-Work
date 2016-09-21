@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
 //                Structure
 
 
@@ -8,15 +13,18 @@ struct fa {
 
   bool *initial_states;
   bool *final_states;
+
   struct state *states;
 
   struct state_set **transitions;
 };
 
+/*
 struct state {
   bool is_initial;
   bool is_final;
 };
+*/
 
 /*
 struct state_set {
@@ -25,6 +33,7 @@ struct state_set {
   size_t *states;
 };
 */
+
 
 struct state_node {
   size_t state;
@@ -40,7 +49,8 @@ struct state_set {
 //                    Fonctions
 
 void fa_create(struct fa *self, size_t alpha_count, size_t state_count);
-void fa_delete(struct fa *self);
+void fa_destroy(struct fa *self);
+void ajouteListe(struct state_set* l, size_t q);
 
 void fa_set_state_initial(struct fa *self, size_t state);
 void fa_set_state_final(struct fa *self, size_t state);
