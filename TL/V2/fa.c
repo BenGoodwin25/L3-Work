@@ -42,59 +42,15 @@ void fa_set_state_final(struct fa *self, size_t state){
   self->final_states[state]=true;
 }
 
-void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){
-  //ajouteListe(&self->transitions[from][alpha-'a'], to);
-  //self->transitions[from][to]->size+=1;
+void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){//TODO
+  //TODO check if transition exist already
+  if(self->transitions[from][(unsigned int) alpha].size >
+     self->transitions[from][(unsigned int) alpha].capacity){
+    //self->transitions[from][(unsigned int) alpha - 'a'].capacity+=1;
+  }
+  //self->transitions[from][(unsigned int) alpha - 'a'].size+=1;
+  //self->transitions[from][(unsigned int) alpha - 'a'].state[size]=to;
 }
-
-void ajouteListe(struct state_set* l, size_t q){
-  /*struct state_set* ptl;
-  struct state_set* tmp;*/
-  /*
-  ptl=*l;
-  if(!ptl){
-    ptl=(struct state_set*) malloc(sizeof(struct state_set));
-    ptl->first->state=q;
-    ptl->first->next=NULL;
-    *l=ptl;
-    return;
-  }
-
-  if(ptl->first->state == q){
-    return;
-  }
-
-  if(q< ptl->first->state){
-    tmp=*l;
-    *l=(struct state_set*) malloc(sizeof(struct state_set));
-    (*l)->first->state=q;
-    (*l)->first->next=(struct state_node*)tmp;
-    return;
-  }
-
-  while(ptl->first->next && ptl->first->next->state < q){
-    ptl=(struct state_set*)ptl->first->next;
-  }
-
-  if(!ptl->first->next){
-    ptl->first->next=(struct state_node*) malloc(sizeof(struct state_set));
-    ptl=(struct state_set*)ptl->first->next;
-    ptl->first->state=q;
-    ptl->first->next=NULL;
-    return;
-  }
-
-  if(ptl->first->next->state==q){
-    return;
-  }
-  tmp=(struct state_set*)ptl->first->next;
-  ptl->first->next=(struct state_node*) malloc(sizeof(struct state_set));
-  ptl=(struct state_set*)ptl->first->next;
-  ptl->first->state=q;
-  ptl->first->next=tmp->first;
-  */
-}
-
 
 void fa_pretty_print(const struct fa *self, FILE *out){
   int i,f;
@@ -119,12 +75,7 @@ void fa_pretty_print(const struct fa *self, FILE *out){
     fprintf(out, "\tFor State %d:\n",i);
     for(f=0;f<self->alpha_count;f++){
       fprintf(out, "\t\tFor letter %c: ",(unsigned int) f + 'a');
-      //struct state_set *p = malloc(self->state_count*sizeof(size_t));
-      /**p = self->transitions[i][f];
-      while(p != NULL){
-        fprintf(out, "%zu ", p->first->state);
-        p = p->first->next;
-      }*/
+      //TODO
       fprintf(out, "\n");
     }
   }

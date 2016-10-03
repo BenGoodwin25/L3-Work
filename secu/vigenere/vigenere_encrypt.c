@@ -4,7 +4,7 @@
 int main(int argc, char *argv[]) {
 	if(argc != 2){
 		fprintf(stderr,"Need one Parameter\n");
-		return;
+		return 0;
 	}
 	int i,j=0;
 	char *key=argv[1];
@@ -19,5 +19,5 @@ int main(int argc, char *argv[]) {
 		}
 		printf("%c", c);
 	}
-	return 0;
+	return 1;
 }
