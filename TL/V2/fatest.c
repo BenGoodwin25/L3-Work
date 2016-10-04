@@ -10,7 +10,6 @@ int main(){
   fa_set_state_initial(&tomate, 1);
 
   fa_set_state_final(&tomate, 4);
-  fa_set_state_final(&tomate, 4);
 
   //fa_pretty_print(&tomate, stdout);//DEBUG
   //2.4

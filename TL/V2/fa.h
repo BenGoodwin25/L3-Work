@@ -14,7 +14,7 @@ struct fa {
   bool *initial_states;
   bool *final_states;
 
-  struct state *states;
+  //struct state *states;
 
   struct state_set **transitions;
 };
@@ -26,12 +26,12 @@ struct state {
 };
 */
 
-
 struct state_set {
   size_t size;
   size_t capacity;
   size_t *states;
 };
+
 
 
 /*
