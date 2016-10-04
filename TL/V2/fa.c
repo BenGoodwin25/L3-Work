@@ -21,7 +21,7 @@ void fa_create(struct fa *self, size_t alpha_count, size_t state_count){
   for(i=0;i<self->state_count;i++){
     self->transitions[i] = malloc(self->state_count * sizeof(struct state_set));
     for(f=0;f<self->alpha_count;f++){
-      self->transitions[i][f].capacity = self->alpha_count;
+      self->transitions[i][f].capacity = self->alpha_count*self->state_count;
       self->transitions[i][f].size = 0;
       self->transitions[i][f].states = malloc(sizeof(size_t));
     }
@@ -47,12 +47,27 @@ void fa_set_state_final(struct fa *self, size_t state){
 }
 
 void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){//TODO
-  //TODO check if transition exist already
-  if(self->transitions[from][(unsigned int) alpha].size >
-     self->transitions[from][(unsigned int) alpha].capacity){
-    self->transitions[from][(unsigned int) alpha - 'a'].capacity+=1;
+  int s;
+  if(from>=self->state_count || to>=self->state_count ||
+     (size_t)alpha-'a' >= self->alpha_count){
+    return;
   }
-  self->transitions[from][(unsigned int) alpha - 'a'].states[self->transitions[from][(unsigned int) alpha].size]=to;
+
+  if(self->transitions[from][(size_t) alpha - 'a'].size >
+     self->transitions[from][(size_t) alpha - 'a'].capacity){
+    printf("plus de place, aggrandissement non pris en charge taille maximum de transitions alpha*state");
+  }
+
+
+  if(self->transitions[from][(size_t) alpha - 'a'].size>0){
+    for(s=0;s<self->transitions[from][(size_t) alpha - 'a'].size;s++){
+        if(self->transitions[from][(size_t) alpha - 'a'].states[s]==to){
+          return;
+        }
+    }
+  }
+  self->transitions[from][(size_t) alpha - 'a'].states[self->transitions[from]
+    [(size_t) alpha - 'a'].size]=to;
   self->transitions[from][(size_t) alpha - 'a'].size+=1;
 }
 
@@ -64,25 +79,22 @@ void fa_pretty_print(const struct fa *self, FILE *out){
       fprintf(out, "%d ", i);
     }
   }
-  fprintf(out, "\n");
 
-  fprintf(out, "Final states :\n\t");
+  fprintf(out, "\nFinal states :\n\t");
   for(i=0;i<self->state_count;i++){
     if(self->final_states[i]==true){
       fprintf(out, "%d ",i);
     }
   }
-  fprintf(out, "\n");
 
-  fprintf(out, "Transitions :\n");
+  fprintf(out, "\nTransitions :");
   for(i=0;i<self->state_count;i++){
-    fprintf(out, "\tFor State %d:\n",i);
+    fprintf(out, "\n\tFor State %d:",i);
     for(f=0;f<self->alpha_count;f++){
-      fprintf(out, "\t\tFor letter %c: ",(unsigned int) f + 'a');
+      fprintf(out, "\n\t\tFor letter %c: ",(unsigned int) f + 'a');
       for(s=0;s<self->transitions[i][f].size;s++){
         fprintf(out, "%zu ",self->transitions[i][f].states[s]);
       }
-      fprintf(out, "\n");
     }
   }
   fprintf(out, "\n");
