@@ -14,7 +14,7 @@ int main(){
   //fa_pretty_print(&tomate, stdout);//DEBUG
   //2.4
   fa_add_transition(&tomate, 0, 'a', 1);
-  /*
+  
   fa_add_transition(&tomate, 0, 'a', 2);
   fa_add_transition(&tomate, 0, 'a', 3);
   fa_add_transition(&tomate, 1, 'b', 3);
@@ -23,7 +23,7 @@ int main(){
   fa_add_transition(&tomate, 3, 'a', 3);
   fa_add_transition(&tomate, 3, 'b', 4);
   fa_add_transition(&tomate, 4, 'a', 4);
-  */
+  
   //2.5
   fa_pretty_print(&tomate, stdout);
   //2.2

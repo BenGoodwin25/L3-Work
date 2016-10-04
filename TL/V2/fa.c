@@ -53,12 +53,11 @@ void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){//TO
     self->transitions[from][(unsigned int) alpha - 'a'].capacity+=1;
   }
   self->transitions[from][(unsigned int) alpha - 'a'].states[self->transitions[from][(unsigned int) alpha].size]=to;
-  //self->transitions[0][0].states[0]=to;
   self->transitions[from][(size_t) alpha - 'a'].size+=1;
 }
 
 void fa_pretty_print(const struct fa *self, FILE *out){
-  int i,f;
+  int i,f,s;
   fprintf(out, "Initial states :\n\t");
   for(i=0;i<self->state_count;i++){
     if(self->initial_states[i]==true){
@@ -80,7 +79,9 @@ void fa_pretty_print(const struct fa *self, FILE *out){
     fprintf(out, "\tFor State %d:\n",i);
     for(f=0;f<self->alpha_count;f++){
       fprintf(out, "\t\tFor letter %c: ",(unsigned int) f + 'a');
-      //TODO
+      for(s=0;s<self->transitions[i][f].size;s++){
+        fprintf(out, "%zu ",self->transitions[i][f].states[s]);
+      }
       fprintf(out, "\n");
     }
   }
