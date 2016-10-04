@@ -98,5 +98,38 @@ void fa_pretty_print(const struct fa *self, FILE *out){
     }
   }
   fprintf(out, "\n");
+}
+
+
+//------------------------TP2----------------------//
+/*void remove_value_array(size_t *array, size_t value){
+
+}*/
+
+void fa_remove_transition(struct fa *self, size_t from, char alpha, size_t to){
 
 }
+
+/*void fa_remove_state(struct fa *self, size_t state){
+
+}
+
+size_t fa_count_transitions(struct fa *self){
+
+}
+
+bool fa_is_deterministic(struct fa *self){
+
+}
+
+bool fa_is_complete(struct fa *self){
+
+}
+
+void fa_make_complete(struct fa *self){
+
+}
+
+void fa_merge_states(struct fa *self, size_t s1, size_t s2){
+
+}*/
