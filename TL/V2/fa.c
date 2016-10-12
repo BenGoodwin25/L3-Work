@@ -107,13 +107,41 @@ void fa_pretty_print(const struct fa *self, FILE *out){
 }*/
 
 void fa_remove_transition(struct fa *self, size_t from, char alpha, size_t to){
+  int s,c;
+  if(from>=self->state_count || to>=self->state_count ||
+     (size_t)alpha-'a' >= self->alpha_count){
+    return;
+  }
 
+  if(self->transitions[from][(size_t) alpha - 'a'].size>0){
+    for(s=0;s<self->transitions[from][(size_t) alpha - 'a'].size;s++){
+        if(self->transitions[from][(size_t) alpha - 'a'].states[s]==to){
+          for(c=s+1;c<self->transitions[from][(size_t) alpha - 'a'].size;c++){
+            self->transitions[from][(size_t) alpha - 'a'].states[s]=
+              self->transitions[from][(size_t) alpha - 'a'].states[c];
+          }
+          self->transitions[from][(size_t) alpha - 'a'].size-=1;
+        }
+    }
+  }
+  return;
 }
 
-/*void fa_remove_state(struct fa *self, size_t state){
-
+void fa_remove_state(struct fa *self, size_t state){
+  int i,j,s;
+  if(state>=self->state_count){
+    return;
+  }
+  i=state;
+  for(j=0;j<self->state_count;j++){
+    for(s=0;s<self->alpha_count;s++){
+      fa_remove_transition(self, i, 'a' + s, j);
+      fa_remove_transition(self, j, 'a' + s, i);
+    }
+  }
+  //TODO
 }
-
+/*
 size_t fa_count_transitions(struct fa *self){
 
 }

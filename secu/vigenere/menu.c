@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
     printf("#                                                              #\n");
 	  printf("#               1 : Chiffrer avec Vigenere                     #\n");
     printf("#               2 : Dechiffrer avec Vigenere                   #\n");
-    printf("#               4 : Decrypter Vigenere (Analyse Freq.)         #\n");
     printf("#                                                              #\n");
     printf("################################################################\n");
     printf("Votre Choix :");
@@ -34,14 +33,8 @@ int main(int argc, char *argv[]) {
       sprintf(command, "./vigenere_decrypt %d < %s > plain%s", key, sourcename, sourcename);
       system(command);
       break;
-    case 4:
-      printf("Vous avez choisi de Decrypter Vigenere avec Analyse Freq., quel est le nom de votre fichier ? ");
-      scanf("%s",&sourcename);
-      sprintf(command, "./vigenere_break < %s",sourcename);
-      system(command);
-      break;
     default:
-      printf("Restart menu and choose a number between 1 and 3");
+      printf("Restart menu and choose a number between 1 and 2");
       choice=0;
       break;
     }
