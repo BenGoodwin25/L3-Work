@@ -5,23 +5,24 @@
 void fa_create(struct fa *self, size_t alpha_count, size_t state_count){
   int i,f;
 
+  self->is_trash_on=false;
 
   self->alpha_count = alpha_count;
   self->state_count = state_count;
 
-  self->initial_states = malloc(self->state_count*sizeof(size_t));
-  self->final_states = malloc(self->state_count*sizeof(size_t));
+  self->initial_states = malloc((self->state_count+1)*sizeof(size_t));//+1 : Trash State
+  self->final_states = malloc((self->state_count+1)*sizeof(size_t));
   for(i=0;i<self->state_count;i++){
     self->initial_states[i] = false;
     self->final_states[i] = false;
   }
 
-  self->transitions = (struct state_set**)malloc(self->state_count * self->alpha_count*sizeof(struct state_set*));
+  self->transitions = (struct state_set**)malloc((self->state_count+1) * self->alpha_count*sizeof(struct state_set*));
 
-  for(i=0;i<self->state_count;i++){
-    self->transitions[i] = malloc(self->state_count * sizeof(struct state_set));
+  for(i=0;i<self->state_count+1;i++){
+    self->transitions[i] = malloc((self->state_count+1) * sizeof(struct state_set));
     for(f=0;f<self->alpha_count;f++){
-      self->transitions[i][f].capacity = self->alpha_count*self->state_count;
+      self->transitions[i][f].capacity = self->alpha_count*(self->state_count+1);
       self->transitions[i][f].size = 0;
       self->transitions[i][f].states = malloc(sizeof(size_t));
     }
@@ -90,6 +91,9 @@ void fa_pretty_print(const struct fa *self, FILE *out){
   fprintf(out, "\nTransitions :");
   for(i=0;i<self->state_count;i++){
     fprintf(out, "\n\tFor State %d:",i);
+    if(self->is_trash_on==true && i==self->state_count-1){
+      fprintf(out," (Trash State)");
+    }
     for(f=0;f<self->alpha_count;f++){
       fprintf(out, "\n\t\tFor letter %c: ",(unsigned int) f + 'a');
       for(s=0;s<self->transitions[i][f].size;s++){
@@ -102,10 +106,6 @@ void fa_pretty_print(const struct fa *self, FILE *out){
 
 
 //------------------------TP2----------------------//
-/*void remove_value_array(size_t *array, size_t value){
-
-}*/
-
 bool transitions_exist(struct fa *self,size_t from, char alpha, size_t to){
   int i;
   for(i=0;i<self->transitions[from][(size_t) alpha - 'a'].size;i++){
@@ -230,11 +230,31 @@ bool fa_is_complete(struct fa *self){
   return true;
 }
 
-/*
 void fa_make_complete(struct fa *self){
-
+  if(fa_is_complete(self)==true){
+    return;
+  }
+  int i,j,s,count;
+  for(i=0;i<self->state_count;i++){
+    for(s=0;s<self->alpha_count;s++){
+      count=0;
+      for(j=0;j<self->state_count;j++){
+        if(transitions_exist(self,i,'a'+s,j)){
+          count+=1;
+        }
+      }
+      if(count==0){
+        if(self->is_trash_on==false){
+          self->is_trash_on=true;
+          self->state_count+=1;
+        }
+        fa_add_transition(self,i,'a'+s,self->state_count-1);
+      }
+    }
+  }
+  return;
 }
-
+/*
 void fa_merge_states(struct fa *self, size_t s1, size_t s2){
 
 }*/

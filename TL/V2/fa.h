@@ -13,17 +13,10 @@ struct fa {
   bool *initial_states;
   bool *final_states;
 
-  //struct state *states;
+  bool is_trash_on;
 
   struct state_set **transitions;
 };
-
-/*
-struct state {
-  bool is_initial;
-  bool is_final;
-};
-*/
 
 struct state_set {
   size_t size;
@@ -31,18 +24,6 @@ struct state_set {
   size_t *states;
 };
 
-
-
-/*
-struct state_node {
-  size_t state;
-  struct state_node *next;
-};
-
-struct state_set {
-  struct state_node *first;
-};
-*/
 
 
 //                    Fonctions
