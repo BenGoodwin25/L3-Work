@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <stdbool.h>
 
 
 //                Structure
-
-
 
 struct fa {
   size_t alpha_count;
@@ -61,6 +60,7 @@ void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to);
 void fa_pretty_print(const struct fa *self, FILE *out);
 
 //                     TP2
+bool transitions_exist(struct fa *self, size_t from, char alpha, size_t to);
 void fa_remove_transition(struct fa *self, size_t from, char alpha, size_t to);
 void fa_remove_state(struct fa *self, size_t state);
 
