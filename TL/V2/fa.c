@@ -215,9 +215,9 @@ bool fa_is_deterministic(struct fa *self){
 bool fa_is_complete(struct fa *self){
   int i,j,s,count;
   for(i=0;i<self->state_count;i++){
-    for(j=0;j<self->state_count;j++){
+    for(s=0;s<self->alpha_count;s++){
       count=0;
-      for(s=0;s<self->alpha_count;s++){
+      for(j=0;j<self->state_count;j++){
         if(transitions_exist(self,i,'a'+s,j)){
           count+=1;
         }
