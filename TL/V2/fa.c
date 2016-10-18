@@ -37,13 +37,14 @@ void fa_destroy(struct fa *self){
   free(self->initial_states);
   free(self->final_states);
   int i,f;
-  for(i=0;i<self->state_count+1;i++){
+  for(i=0;i<self->state_count;i++){
     for(f=0;f<self->alpha_count;f++){
       free(self->transitions[i][f].states);
     }
     free(self->transitions[i]);
   }
   free(self->transitions);
+
 }
 
 void fa_set_state_initial(struct fa *self, size_t state){
