@@ -36,6 +36,13 @@ void fa_destroy(struct fa *self){
   self->state_count=0;
   free(self->initial_states);
   free(self->final_states);
+  int i,f;
+  for(i=0;i<self->state_count+1;i++){
+    for(f=0;f<self->alpha_count;f++){
+      free(self->transitions[i][f].states);
+    }
+    free(self->transitions[i]);
+  }
   free(self->transitions);
 }
 
@@ -56,7 +63,7 @@ void fa_add_transition(struct fa *self, size_t from, char alpha, size_t to){//TO
 
   if(self->transitions[from][(size_t) alpha - 'a'].size >
      self->transitions[from][(size_t) alpha - 'a'].capacity){
-    printf("plus de place, aggrandissement non pris en charge taille maximum de transitions alpha*state");
+    fprintf(stderr,"plus de place, aggrandissement non pris en charge taille maximum de transitions alpha*state");
   }
 
 
@@ -150,18 +157,20 @@ void fa_remove_state(struct fa *self, size_t state){
     }
   }
   //TODO move transitions n+1 to n...
-  for(i=state+1;i<self->state_count;i++){
+  for(i=state;i<self->state_count;i++){
     for(j=0;j<self->state_count;j++){
       for(s=0;s<self->alpha_count;s++){
-        if(transitions_exist(self,i,'a'+s,j)){
-          fa_remove_transition(self,i,'a'+s,j);
-          printf("Find one : %d-%c>%d : %d-%c>%d\n",i,'a'+s,j,i-1,'a'+s,j);
-          fa_add_transition(self,i-1,'a'+s,j);
+        if(transitions_exist(self,j,'a'+s,i)) {
+          fa_remove_transition(self, j, 'a' + s, i);
+          if(i==j){
+            fa_add_transition(self, i - 1, 'a' + s, j-1);
+          }else {
+            fa_add_transition(self, j, 'a' + s, i - 1);
+          }
         }
-        if(transitions_exist(self,j,'a'+s,i)){
-          fa_remove_transition(self,j,'a'+s,i);
-          printf("find one : %d-%c>%d : %d-%c>%d\n",j,'a'+s,i,j,'a'+s,i-1);
-          fa_add_transition(self,j,'a'+s,i-1);
+        if(transitions_exist(self, i, 'a' + s, j)) {
+          fa_remove_transition(self, i, 'a' + s, j);
+          fa_add_transition(self, i - 1, 'a' + s, j);
         }
       }
     }
@@ -254,7 +263,25 @@ void fa_make_complete(struct fa *self){
   }
   return;
 }
-/*
-void fa_merge_states(struct fa *self, size_t s1, size_t s2){
 
-}*/
+void fa_merge_states(struct fa *self, size_t s1, size_t s2){
+  int i,s;
+  for(i=0;i<self->state_count;i++){
+    for(s=0;s<self->alpha_count;s++){
+      if(transitions_exist(self,i,'a'+s,s2)){
+        fa_remove_transition(self,i,'a'+s,s2);
+        if(i==s2){
+          fa_add_transition(self, s1, 'a' + s, s1);
+
+        }else {
+          fa_add_transition(self, i, 'a' + s, s1);
+        }
+      }
+      if(transitions_exist(self,s2,'a'+s,i)){
+        fa_remove_transition(self,s2,'a'+s,i);
+        fa_add_transition(self,s1,'a'+s,i);
+      }
+    }
+  }
+  fa_remove_state(self,s2);
+}

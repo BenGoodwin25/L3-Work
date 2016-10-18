@@ -2,7 +2,7 @@
 
 int main(){
   printf("TP1\n");
-  //TODO demonstration pour chaque fonction
+  //TODO demonstration pour chaque fonction : MENU
   /*
   struct fa tomate;
   //2.1
@@ -43,8 +43,7 @@ int main(){
   //2.4
   fa_add_transition(&tomate, 0, 'a', 1);
   fa_add_transition(&tomate, 0, 'a', 2);
-  fa_add_transition(&tomate, 0, 'b', 3);
-  fa_add_transition(&tomate, 1, 'a', 3);
+  fa_add_transition(&tomate, 0, 'a', 3);
   fa_add_transition(&tomate, 1, 'b', 3);
   fa_add_transition(&tomate, 2, 'a', 3);
   fa_add_transition(&tomate, 2, 'b', 4);
@@ -54,10 +53,11 @@ int main(){
   //2.5
   fa_pretty_print(&tomate, stdout);
   //3.1
-  //fa_remove_state(&tomate, 0);
+  //fa_remove_state(&tomate, 2);
 
-  fa_make_complete(&tomate);
+  //fa_make_complete(&tomate);
   //printf("Number of transitions : %zu\n",fa_count_transitions(&tomate));
+  fa_merge_states(&tomate,0,4);
   fa_pretty_print(&tomate, stdout);
 
   return 1;
