@@ -44,6 +44,7 @@ void fa_destroy(struct fa *self){
     free(self->transitions[i]);
   }
   free(self->transitions);
+
 }
 
 void fa_set_state_initial(struct fa *self, size_t state){
