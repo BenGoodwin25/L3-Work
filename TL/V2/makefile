@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall -std=c99
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
-EXEC=fatest
+EXEC=testfa
 
 all: $(EXEC)
 
