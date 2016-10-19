@@ -31,7 +31,6 @@ struct state_set {
 //                    TP1
 void fa_create(struct fa *self, size_t alpha_count, size_t state_count);
 void fa_destroy(struct fa *self);
-void ajouteListe(struct state_set* l, size_t q);
 
 void fa_set_state_initial(struct fa *self, size_t state);
 void fa_set_state_final(struct fa *self, size_t state);

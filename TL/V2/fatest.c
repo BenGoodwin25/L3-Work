@@ -2,37 +2,9 @@
 
 int main(){
   //TODO demonstration pour chaque fonction : MENU
-  //printf("TP2\n");
   struct fa tomate;
-  /*
-  //2.1
-  fa_create(&tomate,2,5);
-  //2.3
-  fa_set_state_initial(&tomate, 0);
-  fa_set_state_initial(&tomate, 1);
-  fa_set_state_final(&tomate, 4);
-  //2.4
-  fa_add_transition(&tomate, 0, 'a', 1);
-  fa_add_transition(&tomate, 0, 'a', 2);
-  fa_add_transition(&tomate, 0, 'a', 3);
-  fa_add_transition(&tomate, 1, 'b', 3);
-  fa_add_transition(&tomate, 2, 'a', 3);
-  fa_add_transition(&tomate, 2, 'b', 4);
-  fa_add_transition(&tomate, 3, 'a', 3);
-  fa_add_transition(&tomate, 3, 'b', 4);
-  fa_add_transition(&tomate, 4, 'a', 4);
-  //2.5
-  fa_pretty_print(&tomate, stdout);
-  //3.1
-  //fa_remove_state(&tomate, 2);
-
-  //fa_make_complete(&tomate);
-  //printf("Number of transitions : %zu\n",fa_count_transitions(&tomate));
-  fa_merge_states(&tomate,0,4);
-  fa_pretty_print(&tomate, stdout);
-  */
   size_t states,alphas;
-  int loop=1,loop2,choice;
+  int loop=1,loop2,example;
   bool fa_created=false;
   printf("################################################################\n");
   printf("#                                                              #\n");
@@ -42,78 +14,168 @@ int main(){
   printf("#                                                              #\n");
   printf("################################################################\n");
   while(loop == 1){
-    choice=0;
+    int choice;
     printf("################################################################\n");
     printf("#                                                              #\n");
 	  printf("#               1 : Create Automate                            #\n");
-    printf("#               2 : Modify Automate                            #\n");
-    printf("#               3 : Delete Automate                            #\n");
-    printf("#               4 : Quit (and delete Automate)                 #\n");
+    printf("#               2 : Display Automate                           #\n");
+    printf("#               3 : Modify Automate                            #\n");
+    printf("#               4 : Delete Automate                            #\n");
+    printf("#               5 : Quit (and delete Automate)                 #\n");
     printf("#                                                              #\n");
     printf("################################################################\n");
     printf("Your Choice :");
     scanf("%d", &choice);
     switch(choice){
       case 1:
-        printf("How many states do you want ?");
-        scanf("%d",&states);
-        printf("How many alpha's do you want ?");
-        scanf("%d",&alphas);
-        fa_create(&tomate,alphas,states);
-        fa_created=true;
+        if(fa_created==true){
+          printf("Automate already created, destroy it before creating a other one\n");
+        } else {
+          printf("Do you want a example automate (from the TP subject) ?(1/0)");//TODO
+          scanf("%d", &example);
+          if (example==1) {
+            fa_create(&tomate,2,5);
+
+            fa_set_state_initial(&tomate, 0);
+            fa_set_state_initial(&tomate, 1);
+            fa_set_state_final(&tomate, 4);
+
+            fa_add_transition(&tomate, 0, 'a', 1);
+            fa_add_transition(&tomate, 0, 'a', 2);
+            fa_add_transition(&tomate, 0, 'a', 3);
+            fa_add_transition(&tomate, 1, 'b', 3);
+            fa_add_transition(&tomate, 2, 'a', 3);
+            fa_add_transition(&tomate, 2, 'b', 4);
+            fa_add_transition(&tomate, 3, 'a', 3);
+            fa_add_transition(&tomate, 3, 'b', 4);
+            fa_add_transition(&tomate, 4, 'a', 4);
+          } else {
+            printf("How many states do you want ?");
+            scanf("%zu", &states);
+            printf("How many alpha's do you want ?");
+            scanf("%zu", &alphas);
+            fa_create(&tomate, alphas, states);
+          }
+          fa_created = true;
+        }
         break;
       case 2:
-        loop2=1;
-        int choice2;
-        while(loop2==1) {
-          printf("################################################################\n");
-          printf("#                                                              #\n");
-          printf("#               1 : Add Transitions                            #\n");
-          printf("#               2 : ...                            #\n");
-          printf("#               3 : ...                            #\n");
-          printf("#               4 : Go Back                                    #\n");
-          printf("#                                                              #\n");
-          printf("################################################################\n");
-          choice2 = 0;
-          printf("Your Choice :");
-          scanf("%d", &choice2);
-          switch (choice2) {
-            case 1:
-              printf("How many states do you want ?");
-              scanf("%d", &states);
-
-              break;
-            case 2:
-              printf("How many states do you want ?");
-              scanf("%d", &states);
-              choice2 = 0;
-              break;
-            case 4:
-              loop2 = 0;
-              break;
-            default:
-              printf("Restart menu and choose a number between 1 and 4\n");
-              choice2 = 0;
-              break;
+        if(fa_created==false){
+          printf("No Automate has been created, create it before displaying it\n");
+        } else {
+          printf("The Automate has %zu transition(s)\n",fa_count_transitions(&tomate));
+          if(fa_is_deterministic(&tomate)) {
+            printf("The Automate is deterministic\n");
+          }else{
+            printf("The Automate isn't deterministic\n");
           }
+          if(fa_is_complete(&tomate)) {
+            printf("The Automate is complete\n");
+          }else{
+            printf("The Automate isn't complete\n");
+          }
+          fa_pretty_print(&tomate,stdout);
+
         }
-        choice=0;
         break;
       case 3:
-        printf("Suppression en cours\n");
-        fa_created=false;
-        fa_destroy(&tomate);
-        choice=0;
+        loop2=1;
+        int choice2;
+        size_t s1,s2;
+        char alpha;
+        if(fa_created==false){
+          printf("No Automate has been created, create it before modifying it\n");
+        } else {
+          while(loop2==1) {
+            printf("################################################################\n");
+            printf("#                                                              #\n");
+            printf("#               1 : Add Transition                             #\n");//TODO check
+            printf("#               2 : Remove Transition                          #\n");//TODO check
+            printf("#               3 : Add Initial State                          #\n");//TODO check
+            printf("#               4 : Add Final State                            #\n");//TODO check
+            printf("#               5 : Make Complete                              #\n");
+            printf("#               6 : Merge States                               #\n");//TODO check
+            printf("#               6 : Remove State                               #\n");//TODO check
+            printf("#               7 : Go Back                                    #\n");
+            printf("#                                                              #\n");
+            printf("################################################################\n");
+            choice2 = 0;
+            printf("Your Choice :");
+            scanf("%d", &choice2);
+            switch (choice2) {
+              case 1:
+                printf("State from ?(0,1,...)");
+                scanf("%zu", &s1);
+                printf("With which letter ?(a,b,...)");
+                scanf("%c", &alpha);
+                printf("State to ?(0,1,...)");
+                scanf("%zu", &s2);
+                fa_add_transition(&tomate,s1,alpha,s2);
+                break;
+              case 2:
+                printf("State from ?(0,1,...)");
+                scanf("%zu", &s1);
+                printf("With which letter ?(a,b,...)");
+                scanf("%c", &alpha);
+                printf("State to ?(0,1,...)");
+                scanf("%zu", &s2);
+                fa_remove_transition(&tomate,s1,alpha,s2);
+                break;
+              case 3:
+                printf("Initial state ?(0,1,...)");
+                scanf("%zu", &s1);
+                fa_set_state_initial(&tomate,s1);
+                break;
+              case 4:
+                printf("Final state ?(0,1,...)");
+                scanf("%zu", &s1);
+                fa_set_state_final(&tomate,s1);
+                break;
+              case 5:
+                printf("Completing ...\n");
+                fa_make_complete(&tomate);
+                break;
+              case 6:
+                printf("First State to merge ?(0,1,...)");
+                scanf("%zu", &s1);
+                printf("Second State to merge ?(0,1,...)");
+                scanf("%zu", &s2);
+                fa_merge_states(&tomate,s1,s2);
+                break;
+              case 7:
+                printf("State to remove ?(0,1,...)");
+                scanf("%zu", &s1);
+                fa_remove_state(&tomate,s1);
+                break;
+              case 8:
+                loop2 = 0;
+                break;
+              default:
+                printf("Restart menu and choose a number between 1 and 8\n");//TODO check if alphabet, infinite loop
+                choice2 = 0;
+                break;
+            }
+          }
+        }
         break;
       case 4:
+        if(fa_created==false){
+          printf("No Automate has been created, create it before deleting it\n");
+        } else {
+          printf("Deleting ...\n");
+          fa_created = false;
+          fa_destroy(&tomate);
+        }
+        break;
+      case 5:
         printf("Exiting ...\n");
         fa_destroy(&tomate);
         loop=0;
         break;
       default:
-        printf("Restart menu and choose a number between 1 and 4\n");
-        choice=0;
+        printf("Restart menu and choose a number between 1 and 5\n");//TODO check if alphabet,infinit loop
         break;
     }
   }
+  return 0;
 }
