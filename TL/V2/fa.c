@@ -48,10 +48,16 @@ void fa_destroy(struct fa *self){
 }
 
 void fa_set_state_initial(struct fa *self, size_t state){
+  if(state>=self->state_count){
+    return;
+  }
   self->initial_states[state]=true;
 }
 
 void fa_set_state_final(struct fa *self, size_t state){
+  if(state>=self->state_count){
+    return;
+  }
   self->final_states[state]=true;
 }
 

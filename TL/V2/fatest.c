@@ -1,20 +1,19 @@
 #include "fa.h"
 
 int main(){
-  //TODO demonstration pour chaque fonction : MENU
   struct fa tomate;
   size_t states,alphas;
-  int loop=1,loop2,example;
+  int loop=1,loop2,example,choice;
   bool fa_created=false;
   printf("################################################################\n");
   printf("#                                                              #\n");
   printf("#                     TL fa-manager(0.3.7)                     #\n");
   printf("#                                                              #\n");
   printf("# !!! Warning there is no input check, follow instructions !!! #\n");
+  printf("#       !!! Do not put any letter when not prompt to !!!       #\n");
   printf("#                                                              #\n");
   printf("################################################################\n");
   while(loop == 1){
-    int choice;
     printf("################################################################\n");
     printf("#                                                              #\n");
 	  printf("#               1 : Create Automate                            #\n");
@@ -31,7 +30,7 @@ int main(){
         if(fa_created==true){
           printf("Automate already created, destroy it before creating a other one\n");
         } else {
-          printf("Do you want a example automate (from the TP subject) ?(1/0)");//TODO
+          printf("Do you want a example automate (from the TP subject) ?(1/0)");
           scanf("%d", &example);
           if (example==1) {
             fa_create(&tomate,2,5);
@@ -89,14 +88,14 @@ int main(){
           while(loop2==1) {
             printf("################################################################\n");
             printf("#                                                              #\n");
-            printf("#               1 : Add Transition                             #\n");//TODO check
-            printf("#               2 : Remove Transition                          #\n");//TODO check
-            printf("#               3 : Add Initial State                          #\n");//TODO check
-            printf("#               4 : Add Final State                            #\n");//TODO check
+            printf("#               1 : Add Transition                             #\n");
+            printf("#               2 : Remove Transition                          #\n");
+            printf("#               3 : Add Initial State                          #\n");
+            printf("#               4 : Add Final State                            #\n");
             printf("#               5 : Make Complete                              #\n");
-            printf("#               6 : Merge States                               #\n");//TODO check
-            printf("#               6 : Remove State                               #\n");//TODO check
-            printf("#               7 : Go Back                                    #\n");
+            printf("#               6 : Merge States                               #\n");
+            printf("#               7 : Remove State                               #\n");
+            printf("#               8 : Go Back                                    #\n");
             printf("#                                                              #\n");
             printf("################################################################\n");
             choice2 = 0;
@@ -107,7 +106,7 @@ int main(){
                 printf("State from ?(0,1,...)");
                 scanf("%zu", &s1);
                 printf("With which letter ?(a,b,...)");
-                scanf("%c", &alpha);
+                scanf("%s", &alpha);
                 printf("State to ?(0,1,...)");
                 scanf("%zu", &s2);
                 fa_add_transition(&tomate,s1,alpha,s2);
@@ -116,7 +115,7 @@ int main(){
                 printf("State from ?(0,1,...)");
                 scanf("%zu", &s1);
                 printf("With which letter ?(a,b,...)");
-                scanf("%c", &alpha);
+                scanf("%s", &alpha);
                 printf("State to ?(0,1,...)");
                 scanf("%zu", &s2);
                 fa_remove_transition(&tomate,s1,alpha,s2);
@@ -151,8 +150,8 @@ int main(){
                 loop2 = 0;
                 break;
               default:
-                printf("Restart menu and choose a number between 1 and 8\n");//TODO check if alphabet, infinite loop
-                choice2 = 0;
+                printf("Restart menu and choose a number between 1 and 8\n");
+                loop2=0;
                 break;
             }
           }
@@ -173,7 +172,8 @@ int main(){
         loop=0;
         break;
       default:
-        printf("Restart menu and choose a number between 1 and 5\n");//TODO check if alphabet,infinit loop
+        printf("Restart menu and choose a number between 1 and 5\n");
+        loop=0;
         break;
     }
   }
