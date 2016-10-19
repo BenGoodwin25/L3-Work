@@ -59,6 +59,7 @@ int main(){
   //printf("Number of transitions : %zu\n",fa_count_transitions(&tomate));
   fa_merge_states(&tomate,0,4);
   fa_pretty_print(&tomate, stdout);
-
+  fa_destroy(&tomate);
+  fa_pretty_print(&tomate, stdout);
   return 1;
 }
