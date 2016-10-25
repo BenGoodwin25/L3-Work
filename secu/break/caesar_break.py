@@ -40,5 +40,4 @@ cipher.close()
 os.system(("./caesar_decrypt " + str(key) + " < cipher"))
 answer=input("is this okay ?(y/n)")
 if answer == 'y':
-    os.system(("./caesar_decrypt " + str(key) + " < cipher > plain"))
-
+    os.system(("./caesar_decrypt " + str(key) + " < cipher > plain"+str(namefile)))
