@@ -54,14 +54,6 @@ bool graph_has_transitions(struct graph *self, size_t from, size_t to){
   return found;
 }
 
-void graph_remove_state(struct graph *self, size_t state){
-
-}
-
-void graph_remove_transitions(struct graph *self, size_t from, size_t to){
-
-}
-
 //4.2
 void graph_depth_first_search(const struct graph *self, size_t state, bool *visited){
   visited[state]=true;
@@ -91,12 +83,27 @@ bool graph_has_path(const struct graph *self, size_t from, size_t to){
 
 //4.4
 void graph_create_from_fa(struct graph *self, const struct fa *fa, bool inverted){
-
+  graph_create(self,fa->state_count);
+  size_t i,f,s;
+  for(i=0;i<fa->state_count;i++){//creation of state before to avoid having error of creation of transition with destination not yet created
+    graph_add_state(self,i);
+  }
+  for(i=0;i<fa->state_count;i++){//State From
+    for(f=0;f<fa->alpha_count;f++){//letter
+      for(s=0;s<fa->transitions[i][f].size;s++){//State To
+        if(inverted == true){
+          graph_add_transitions(self,s,i);
+        } else {
+          graph_add_transitions(self,i,s);
+        }
+      }
+    }
+  }
 }
 
 //4.5
 void graph_destroy(struct graph *self){
-
+  
 }
 
 //4.6
@@ -104,3 +111,7 @@ bool fa_is_language_empty(const struct fa *self){
 
 	return false;
 }
+
+//5.1
+
+//5.2
