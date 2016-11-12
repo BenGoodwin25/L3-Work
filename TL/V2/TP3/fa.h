@@ -4,6 +4,8 @@
 #include <stdbool.h>
 
 
+
+
 //                Structure
 
 struct fa {
@@ -51,3 +53,11 @@ bool fa_is_complete(struct fa *self);
 
 void fa_make_complete(struct fa *self);
 void fa_merge_states(struct fa *self, size_t s1, size_t s2);
+
+//                      TP3
+//4.6
+bool fa_is_language_empty(const struct fa *self);
+
+//5.1
+
+//5.2

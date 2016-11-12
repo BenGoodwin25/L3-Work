@@ -103,15 +103,11 @@ void graph_create_from_fa(struct graph *self, const struct fa *fa, bool inverted
 
 //4.5
 void graph_destroy(struct graph *self){
-  
+  size_t i;
+  for(i=0; i<self->maxStates;i++){
+    destroyList(&self->adjacencyList[i]);
+  }
+  free(self->adjacencyList);
+  self->adjacencyList=NULL;
 }
 
-//4.6
-bool fa_is_language_empty(const struct fa *self){
-
-	return false;
-}
-
-//5.1
-
-//5.2

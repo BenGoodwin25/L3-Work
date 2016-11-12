@@ -1,4 +1,5 @@
 #include "fa.h"
+#include "graph.h"
 
 
 
@@ -292,3 +293,27 @@ void fa_merge_states(struct fa *self, size_t s1, size_t s2){
   }
   fa_remove_state(self,s2);
 }
+//4.6
+bool fa_is_language_empty(const struct fa *self){
+  struct graph gf;
+  graph_create_from_fa(&gf,self,false);
+  size_t i,j;
+  for(i=0;i<self->state_count;i++){
+    if(self->initial_states[i] == true){
+      for(j=0;j<self->state_count;j++){
+        if(self->final_states[j] == true && i != j){
+          if(graph_has_path(&gf,i,j)){
+            graph_destroy(&gf);
+            return false;
+          }
+        }
+      }
+    }
+  }
+  graph_destroy(&gf);
+  return true;
+}
+
+//5.1
+
+//5.2

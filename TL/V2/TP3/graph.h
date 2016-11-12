@@ -35,7 +35,4 @@ void graph_create_from_fa(struct graph *self, const struct fa *fa, bool inverted
 //4.5
 void graph_destroy(struct graph *self);
 
-//4.6
-bool fa_is_language_empty(const struct fa *self);
-
 #endif
