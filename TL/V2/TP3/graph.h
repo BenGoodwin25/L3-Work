@@ -11,11 +11,13 @@ struct graph{
 //4.1
 void graph_create(struct graph *self, size_t maxStates);
 
-void create_state(struct graph *self, size_t State);
+bool graph_add_state(struct graph *self, size_t state);
 
-void graph_add_state(struct graph *self);
+bool graph_add_transitions(struct graph *self, size_t from, size_t to);
 
-void graph_add_transitions(struct graph *self, size_t from, size_t to);
+bool graph_state_exist(struct graph *self, size_t state);
+
+bool graph_has_transitions(struct graph *self, size_t from, size_t to);
 
 void graph_remove_state(struct graph *self, size_t state);
 

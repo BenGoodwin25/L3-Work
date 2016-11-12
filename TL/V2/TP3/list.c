@@ -5,45 +5,67 @@
 
 
 void createList(struct list* self){
-
+  self = malloc(sizeof(struct list));
+  self->first=NULL;
 }
 
-//destruction
 void destroyList(struct list* self){
-
+  while(!isEmptyList(self)){
+    delFirstNode(self);
+  }
 }
 
-//ajout
-void addNode(struct list* self, size_t neighboor, size_t weight){
-
+bool addNode(struct list* self, size_t state){
+  struct list_node *other = malloc(sizeof(struct list_node));
+  if(other == NULL){
+    return false;
+  } else {
+    other->state = state;
+    other->next = self->first;
+    self->first = other;
+    return true;
+  }
 }
 
-//suppression après l'élément courant
+void delFirstNode(struct list* self){
+  if(!isEmptyList(self)){
+    struct list_node *tmp = malloc(sizeof(struct list_node));
+    tmp->next = self->first->next;
+    free(self->first);
+    self->first=NULL;
+    self->first = tmp->next;
+    tmp->next = NULL;
+    free(tmp);
+  }
+}
+
+bool isEmptyList(const struct list* self){
+  if(self->first == NULL){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+size_t listSize(const struct list* self){
+  if(isEmptyList(self)){
+    return 0;
+  } else {
+    struct list visit;
+    visit.first = self->first;
+    size_t size = 1;
+    while(visit.first->next != NULL){
+      visit.first=visit.first->next;
+      size+=1;
+    }
+    return size;
+  }
+}
+
 void delNodeAfter(struct list_node* self){
 
 }
 
-//supression de la valeur
-void delNode(struct list* self, int value){
-
-}
-
-//suppression du premier node
-void delFirstNode(struct list* self){
-
-}
-
-//vide
-bool isEmptyList(const struct list* self){
-
-}
-
-//taille
-size_t listSize(const struct list* self){
-
-}
-
-//recherche
 struct list_node* searchNode(const struct list*  self, size_t state){
 
 }
