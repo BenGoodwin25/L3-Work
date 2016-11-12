@@ -17,16 +17,21 @@ int main(){
   fa_add_transition(&tomate, 0, 'a', 3);
   fa_add_transition(&tomate, 1, 'b', 3);
   fa_add_transition(&tomate, 2, 'a', 3);
-  fa_add_transition(&tomate, 2, 'b', 4);
+  //fa_add_transition(&tomate, 2, 'b', 4);
   fa_add_transition(&tomate, 3, 'a', 3);
   fa_add_transition(&tomate, 3, 'b', 4);
   fa_add_transition(&tomate, 4, 'a', 4);
+  //fa_pretty_print(&tomate,stdout);
 
-  if(fa_is_language_empty(&tomate)){
+  //fa_remove_non_accessible_states(&tomate);
+  fa_remove_non_co_accessible_states(&tomate);
+  fa_pretty_print(&tomate,stdout);
+
+  /*if(fa_is_language_empty(&tomate)){
     printf("Language is empty\n");
   } else {
     printf("language isn't empty\n");
-  }
+  }*/
   /*struct graph gf;
   graph_create_from_fa(&gf,&tomate,false);
   if(graph_has_path(&gf,0,4)){

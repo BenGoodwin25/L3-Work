@@ -59,10 +59,14 @@ void graph_depth_first_search(const struct graph *self, size_t state, bool *visi
   visited[state]=true;
   size_t u;
   size_t size = listSize(&self->adjacencyList[state]);
-  for(u=state;u<=size;u++){
-    if(visited[u] == false) {
-      graph_depth_first_search(self, u, visited);
+  struct list visit;
+  visit.first = self->adjacencyList[state].first;
+  while(visit.first->next != NULL){
+    if(visited[visit.first->state] == false) {
+      printf("New adventure with %zu\n",visit.first->state);
+      graph_depth_first_search(self, visit.first->state, visited);
     }
+    visit.first=visit.first->next;
   }
 }
 
@@ -92,9 +96,11 @@ void graph_create_from_fa(struct graph *self, const struct fa *fa, bool inverted
     for(f=0;f<fa->alpha_count;f++){//letter
       for(s=0;s<fa->transitions[i][f].size;s++){//State To
         if(inverted == true){
-          graph_add_transitions(self,s,i);
+          //printf("State From:%zu, To:%zu, with:%c\n", fa->transitions[i][f].states[s], i, (unsigned char) f+'A');
+          graph_add_transitions(self,fa->transitions[i][f].states[s],i);
         } else {
-          graph_add_transitions(self,i,s);
+          //printf("State From:%zu, To:%zu, with:%c\n", i, fa->transitions[i][f].states[s], (unsigned char) f+'A');
+          graph_add_transitions(self,i,fa->transitions[i][f].states[s]);
         }
       }
     }

@@ -164,7 +164,6 @@ void fa_remove_state(struct fa *self, size_t state){
       fa_remove_transition(self, j, 'a' + s, i);
     }
   }
-  //TODO move transitions n+1 to n...
   for(i=state;i<self->state_count;i++){
     for(j=0;j<self->state_count;j++){
       for(s=0;s<self->alpha_count;s++){
@@ -315,5 +314,49 @@ bool fa_is_language_empty(const struct fa *self){
 }
 
 //5.1
+void fa_remove_non_accessible_states(struct fa *self){
+  struct graph gf;
+  graph_create_from_fa(&gf,self,false);
+  size_t i,j;
+  bool delete;
+  for(j=0;j<self->state_count;j++){
+    delete=true;
+    for(i=0;i<self->state_count;i++){
+      if(self->initial_states[i] == true){
+        if (graph_has_path(&gf, i, j)) {
+          delete=false;
+        }
+      }
+    }
+    if(delete==true) {
+      printf("removing state : %zu\n", j);
+      fa_remove_state(self, j);
+      fa_remove_non_accessible_states(self);
+    }
+  }
+  graph_destroy(&gf);
+}
 
 //5.2
+void fa_remove_non_co_accessible_states(struct fa *self){//Not fully working
+  struct graph gf;
+  graph_create_from_fa(&gf,self,true);
+  size_t i,j=malloc(sizeof(size_t));
+  bool delete;
+  for(j=0;j<self->state_count;j++){
+    delete=true;
+    for(i=0;i<self->state_count;i++) {
+      if (self->final_states[i] == true) {
+        if (graph_has_path(&gf, i, j)) {
+          delete = false;
+        }
+      }
+    }
+    if(delete==true) {
+      printf("removing state : %zu\n", j);
+      fa_remove_state(self, j);
+      //fa_remove_non_co_accessible_states(self);
+    }
+  }
+  graph_destroy(&gf);
+}
