@@ -57,8 +57,6 @@ bool graph_has_transitions(struct graph *self, size_t from, size_t to){
 //4.2
 void graph_depth_first_search(const struct graph *self, size_t state, bool *visited){
   visited[state]=true;
-  size_t u;
-  size_t size = listSize(&self->adjacencyList[state]);
   struct list visit;
   visit.first = self->adjacencyList[state].first;
   while(visit.first->next != NULL){

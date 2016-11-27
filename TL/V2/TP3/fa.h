@@ -1,10 +1,12 @@
+#ifndef FA_H
+#define FA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
 
-
-
+#define MIN(a,b) ((a) < (b) ? a : b)
 
 //                Structure
 
@@ -62,3 +64,10 @@ bool fa_is_language_empty(const struct fa *self);
 void fa_remove_non_accessible_states(struct fa *self);
 //5.2
 void fa_remove_non_co_accessible_states(struct fa *self);
+
+//6.1
+void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *rhs);
+//6.2
+bool fa_has_empty_intersection(const struct fa *lhs, const struct fa *rhs);
+
+#endif

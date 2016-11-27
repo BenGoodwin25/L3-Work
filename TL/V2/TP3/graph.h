@@ -1,5 +1,5 @@
-#ifndef LIBGRAPHE_H
-#define LIBGRAPHE_H
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include "list.h"
 

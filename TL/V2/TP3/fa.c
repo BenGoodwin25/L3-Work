@@ -299,9 +299,13 @@ bool fa_is_language_empty(const struct fa *self){
   size_t i,j;
   for(i=0;i<self->state_count;i++){
     if(self->initial_states[i] == true){
+      if(self->final_states[i] == true && graph_has_transitions(&gf,i,i)){
+        graph_destroy(&gf);
+        return false;
+      }
       for(j=0;j<self->state_count;j++){
-        if(self->final_states[j] == true && i != j){
-          if(graph_has_path(&gf,i,j)){
+        if(self->final_states[j] == true){
+          if(graph_has_path(&gf,i,j) && i != j){
             graph_destroy(&gf);
             return false;
           }
@@ -359,4 +363,52 @@ void fa_remove_non_co_accessible_states(struct fa *self){//Not fully working
     }
   }
   graph_destroy(&gf);
+}
+
+//6.1
+void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *rhs){
+  fa_create(self, MIN(lhs->alpha_count, rhs->alpha_count), (lhs->state_count*rhs->state_count-1));
+  size_t i,f,s;
+  for(i=0;i<self->state_count;i++) {
+    for(f=0;f<self->state_count;f++) {
+      if (lhs->initial_states[i] == true && rhs->initial_states[f] == true) {
+        self->initial_states[i*lhs->state_count+f] = true;
+      }
+      if (lhs->final_states[i] == true && rhs->final_states[f] == true) {
+        self->final_states[i*rhs->state_count+f] = true;
+        printf("q1:%zu n2:%zu + q1:%zu\n",i,rhs->state_count,f);
+      }
+    }
+  }
+  //TODO redux transitions
+  for(i=0;i<lhs->state_count;i++){
+    for(f=0;f<lhs->state_count;f++){
+      for (s = 0; s < self->alpha_count; s++) {
+        if (transitions_exist(lhs, f, 'a' + s, i) && transitions_exist(rhs,f, 'a' + s, i)) {
+          fa_add_transition(self, i * lhs->state_count + f, 'a' + s, i * lhs->state_count + f);
+        }
+      }
+    }
+  }
+  /*for(i=0;i<rhs->state_count;i++){
+    for(s=0;s<rhs->alpha_count;s++){
+      if(transitions_exist(rhs,0,'a'+s,i)) {
+        fa_add_transition(self,0+(lhs->state_count-1), 'a' + s, i+(lhs->state_count));
+      }
+      for(f=0;f<rhs->state_count;f++){
+        if(transitions_exist(rhs,f,'a'+s,i)) {
+          fa_add_transition(self,f+(lhs->state_count), 'a' + s, i+(lhs->state_count));
+        }
+      }
+    }
+  }*/
+}
+//6.2
+bool fa_has_empty_intersection(const struct fa *lhs, const struct fa *rhs){
+  struct fa tmp;
+  fa_create_product(&tmp,lhs,rhs);
+  //TODO intersection
+  bool res = fa_is_language_empty(&tmp);
+  fa_destroy(&tmp);
+  return res;
 }
