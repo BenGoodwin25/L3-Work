@@ -12,7 +12,7 @@ int main(){
   fa_create(&tomateleft,2,2);
   fa_set_state_initial(&tomateleft, 0);
   fa_set_state_final(&tomateleft, 1);
-  fa_add_transition(&tomateleft, 0, 'a', 0);
+  fa_add_transition(&tomateleft, 0, 'a', 1);
   fa_add_transition(&tomateleft, 1, 'a', 1);
   fa_add_transition(&tomateleft, 1, 'b', 1);
 

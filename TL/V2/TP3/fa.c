@@ -368,7 +368,8 @@ void fa_remove_non_co_accessible_states(struct fa *self){//Not fully working
 //6.1
 void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *rhs){
   fa_create(self, MIN(lhs->alpha_count, rhs->alpha_count), (lhs->state_count*rhs->state_count));
-  size_t i,f,s;
+  size_t i,f,j,s;
+  j=malloc(sizeof(size_t));
   for(i=0;i<self->state_count;i++) {
     for(f=0;f<self->state_count;f++) {
       if (lhs->initial_states[i] == true && rhs->initial_states[f] == true) {
@@ -376,20 +377,62 @@ void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *r
       }
       if (lhs->final_states[i] == true && rhs->final_states[f] == true) {
         self->final_states[i*rhs->state_count+f] = true;
-        printf("q1:%zu n2:%zu + q1:%zu\n",i,rhs->state_count,f);
       }
     }
   }
   //TODO redux transitions
-  for(i=0;i<lhs->state_count;i++){
-    for(f=0;f<lhs->state_count;f++){
-      for (s = 0; s < self->alpha_count; s++) {
-        if (transitions_exist(lhs, f, 'a' + s, i) && transitions_exist(rhs,f, 'a' + s, i)) {
-          fa_add_transition(self, i * lhs->state_count + f, 'a' + s, i * lhs->state_count + f);
+  size_t maxsize = self->state_count;
+  size_t q1=maxsize;
+  size_t q2=maxsize;
+  for( i = 0; i < lhs->state_count; i++) {
+    for (s = 0; s < self->alpha_count; s++) {
+      for (f = 0; f < rhs->state_count; f++) {
+        if (transitions_exist(lhs, i, 'a' + s, f)) {
+          printf("lhs : %zu -%c> %zu\n",i,'a'+s,f);
+          q1 = f;
         }
+        if (transitions_exist(rhs, i, 'a' + s, f)) {
+          printf("rhs : %zu -%c> %zu\n",i,'a'+s,f);
+          q2 = f;
+        }
+      }
+      if(q1 != maxsize && q2 != maxsize) {
+        printf("%zu -%c> %zu\n", i * lhs->state_count + i, 'a' + s, q1 * rhs->state_count + q2);
+        fa_add_transition(self, i * rhs->state_count + i, 'a' + s, q1 * rhs->state_count + q2);
+        //printf("%zu -%c> %zu\n",i * lhs->state_count + q1, 'a' + s, q1 * rhs->state_count + q2);
+        //fa_add_transition(self,(i/rhs->state_count) * rhs->state_count + i%self->state_count,'a' + s,q1 * rhs->state_count + q2);
+        q1 = maxsize;
+        q2 = maxsize;
       }
     }
   }
+  /*for(i=0;i<lhs->state_count;i++){
+    for(f=0;f<rhs->state_count;f++){
+      for (s = 0; s < self->alpha_count; s++) {
+        if (transitions_exist(lhs, i, 'a' + s, f)) {
+          //printf("lhs:\n");
+        //printf("trans.size : %zu\n",lhs->transitions[i][(size_t) s].size);
+        //printf("trans.size : %zu\n",rhs->transitions[f][(size_t) s].size);
+          for(j=0;j<lhs->transitions[i][(size_t) s].size;j++){
+            printf("%zu -%c> %zu :",i,'a'+s,f);
+            printf("%zu -%c> %zu\n",i * lhs->state_count + f, 'a' + s, i + lhs->state_count * lhs->transitions[i][(size_t) s].states[j]);
+            fa_add_transition(self, i * lhs->state_count + f, 'a' + s, i + lhs->state_count * lhs->transitions[i][(size_t) s].states[j]);
+          }
+        }
+
+        if (transitions_exist(rhs, i, 'a' + s, f)) {
+          //printf("rhs:\n");
+          //printf("trans.size : %zu\n",lhs->transitions[i][(size_t) s].size);
+          //printf("trans.size : %zu\n",rhs->transitions[f][(size_t) s].size);
+          for(j=0;j<rhs->transitions[i][(size_t) s].size;j++){
+            printf("%zu -%c> %zu :",i,'a'+s,f);
+            printf("%zu -%c> %zu\n",i * rhs->state_count + f, 'a' + s, i + rhs->state_count * rhs->transitions[i][(size_t) s].states[j]);
+            fa_add_transition(self, i * rhs->state_count + f, 'a' + s, i + rhs->state_count * rhs->transitions[i][(size_t) s].states[j]);
+          }
+        }
+      }
+    }*/
+  //}
   /*for(i=0;i<rhs->state_count;i++){
     for(s=0;s<rhs->alpha_count;s++){
       if(transitions_exist(rhs,0,'a'+s,i)) {
@@ -407,7 +450,6 @@ void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *r
 bool fa_has_empty_intersection(const struct fa *lhs, const struct fa *rhs){
   struct fa tmp;
   fa_create_product(&tmp,lhs,rhs);
-  //TODO intersection
   bool res = fa_is_language_empty(&tmp);
   fa_destroy(&tmp);
   return res;
