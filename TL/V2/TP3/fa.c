@@ -367,7 +367,7 @@ void fa_remove_non_co_accessible_states(struct fa *self){//Not fully working
 
 //6.1
 void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *rhs){
-  fa_create(self, MIN(lhs->alpha_count, rhs->alpha_count), (lhs->state_count*rhs->state_count-1));
+  fa_create(self, MIN(lhs->alpha_count, rhs->alpha_count), (lhs->state_count*rhs->state_count));
   size_t i,f,s;
   for(i=0;i<self->state_count;i++) {
     for(f=0;f<self->state_count;f++) {
