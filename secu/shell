@@ -1,0 +1,40 @@
+challenge 1
+les heros du peuple sont immortels
+              /bin/ls
+
+challenge 2
+La différence entre une démocratie et une dictature, c'est qu'en démocratie tu votes avant d'obéir aux ordres, dans une dictature, tu perds pas ton temps à voter.
+C. Bukowski
+              vérification que c'est un fichier existant / stats
+
+challenge 3
+J’ai le plus profond respect pour le mépris que j’ai des hommes.
+P. Desproges
+              allocation MEMORY, strncpy
+
+
+challenge 4
+“Homme politique, c’est une profession où il est plus utile d’avoir des relations que des remords.”
+Coluche
+              Solution du 5 et sa correction
+challenge 5
+Si tout semble bien marcher, vous avez forcément négligé quelque chose.
+Edward Murphy
+              
+
+challenge6
+Si cela semble trop beau pour être vrai alors ça l'est probablement.
+Edward Murphy
+              chemin absolue, pas d'utilisation de lien relatif
+
+
+challenge7
+Steve Jobs, le pionner qui a rendu cool la notion de prison informatique, est mort. Son invention était destinée à priver les crétins de leur liberté.
+Richard Stallman
+              utilisé la solution du challenge8 et sa correction aussi
+
+
+challenge 8
+Sans maitrise la puissance n'est rien.
+Pirelli
+              pas utilisé de lib dynamique, pas d'utilisation de lib externe, hashage de mdp

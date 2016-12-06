@@ -70,4 +70,18 @@ void fa_create_product(struct fa *self, const struct fa *lhs, const struct fa *r
 //6.2
 bool fa_has_empty_intersection(const struct fa *lhs, const struct fa *rhs);
 
+//7.1
+void fa_create_deterministic(struct fa *self, const struct fa *nfa);
+//7.2
+bool fa_is_included(const struct fa *lhs, const struct fa *rhs);
+
+//8.1
+bool fa_are_nerode_equivalent(const struct fa *self, size_t s1, size_t s2);
+//8.2
+void fa_create_minimal_nerode(struct fa *self,  const struct fa *other);
+//8.3
+void fa_create_minimal_moore(struct fa *self, const struct fa *other);
+
+
+
 #endif

@@ -61,7 +61,6 @@ void graph_depth_first_search(const struct graph *self, size_t state, bool *visi
   visit.first = self->adjacencyList[state].first;
   while(visit.first->next != NULL){
     if(visited[visit.first->state] == false) {
-      printf("New adventure with %zu\n",visit.first->state);
       graph_depth_first_search(self, visit.first->state, visited);
     }
     visit.first=visit.first->next;
@@ -113,5 +112,27 @@ void graph_destroy(struct graph *self){
   }
   free(self->adjacencyList);
   self->adjacencyList=NULL;
+}
+
+//7.1
+void fa_create_deterministic(struct fa *self, const struct fa *nfa){
+
+}
+//7.2
+bool fa_is_included(const struct fa *lhs, const struct fa *rhs){
+
+}
+
+//8.1
+bool fa_are_nerode_equivalent(const struct fa *self, size_t s1, size_t s2){
+
+}
+//8.2
+void fa_create_minimal_nerode(struct fa *self,  const struct fa *other){
+
+}
+//8.3
+void fa_create_minimal_moore(struct fa *self, const struct fa *other){
+
 }
 
