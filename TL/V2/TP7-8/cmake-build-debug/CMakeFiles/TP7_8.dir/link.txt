@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/TP7_8.dir/fa.c.o CMakeFiles/TP7_8.dir/graph.c.o CMakeFiles/TP7_8.dir/list.c.o CMakeFiles/TP7_8.dir/testfa.c.o  -o TP7_8 
