@@ -7,81 +7,51 @@
 
 int main(){
   printf("TP7\n");
-  struct fa tomate;
+  /*struct fa tomate;
   struct fa detertomate;
   fa_create(&tomate,2,5);
 
   fa_set_state_initial(&tomate, 0);
-  //fa_set_state_initial(&tomate, 1);
+  fa_set_state_initial(&tomate, 1);
   fa_set_state_final(&tomate, 4);
 
   fa_add_transition(&tomate, 0, 'a', 1);
-  //fa_add_transition(&tomate, 0, 'a', 2);
-  //fa_add_transition(&tomate, 0, 'a', 3);
+  fa_add_transition(&tomate, 0, 'a', 2);
+  fa_add_transition(&tomate, 0, 'a', 3);
   fa_add_transition(&tomate, 1, 'b', 3);
   fa_add_transition(&tomate, 2, 'a', 3);
   fa_add_transition(&tomate, 2, 'b', 4);
   fa_add_transition(&tomate, 3, 'a', 3);
   fa_add_transition(&tomate, 3, 'b', 4);
-  fa_add_transition(&tomate, 4, 'a', 4);
-
-  if(fa_create_deterministic(&detertomate,&tomate)){
-    fa_pretty_print(&detertomate,stdout);
-  } else {
-    sprintf(stderr,"Your trial to determinate your fa failed, do not use your determinist fa or you will corrupt this program\n");
-  }
-
-  /*
-  struct fa tomateleft;
-  fa_create(&tomateleft,2,2);
-  fa_set_state_initial(&tomateleft, 0);
-  fa_set_state_final(&tomateleft, 1);
-  fa_add_transition(&tomateleft, 0, 'a', 1);
-  fa_add_transition(&tomateleft, 1, 'a', 1);
-  fa_add_transition(&tomateleft, 1, 'b', 1);
-
-  struct fa tomateright;
-  fa_create(&tomateright,2,2);
-  fa_set_state_initial(&tomateright, 0);
-  fa_set_state_final(&tomateright, 1);
-  fa_add_transition(&tomateright, 0, 'a', 0);
-  fa_add_transition(&tomateright, 0, 'b', 1);
-  fa_add_transition(&tomateright, 1, 'b', 1);
-  fa_add_transition(&tomateright, 1, 'a', 0);
-
-  struct fa tomatefinal;
-  fa_create_product(&tomatefinal, &tomateleft, &tomateright);
-  //fa_has_empty_intersection(&tomateleft, &tomateright);
-  fa_pretty_print(&tomatefinal, stdout);
-   */
-
+  fa_add_transition(&tomate, 4, 'a', 4);*/
   //---------MENU--------------//
-
-  /*struct fa tomate2;
+  struct fa tomate;
+  struct fa tomate2;
   struct fa tomateprod;
   size_t states,alphas;
   int loop=1,loop2,example,choice;
   bool fa_created1=false;
   bool fa_created2=false;
   bool fa_createdprod=false;
-  printf("################################################################\n");
-  printf("#                                                              #\n");
-  printf("#                     TL fa-manager(0.6.2)                     #\n");
-  printf("#                                                              #\n");
-  printf("# !!! Warning there is no input check, follow instructions !!! #\n");
-  printf("#       !!! Do not put any letter when not prompt to !!!       #\n");
-  printf("#                                                              #\n");
-  printf("################################################################\n");
+  printf("##################################################################\n");
+  printf("#                                                                #\n");
+  printf("#                      TL fa-manager(0.7.2)                      #\n");
+  printf("#                                                                #\n");
+  printf("#  !!! Warning there is no input check, follow instructions !!!  #\n");
+  printf("#        !!! Do not put any letter when not prompt to !!!        #\n");
+  printf("#                                                                #\n");
+  printf("##################################################################\n");
   while(loop == 1){
     printf("################################################################\n");
     printf("#                                                              #\n");
-    printf("#               1 : Create Automate                            #\n");
-    printf("#               2 : Create Second Automate (For Product)       #\n");
-    printf("#               3 : Display Automate                           #\n");
-    printf("#               4 : Display Production Automate                #\n");
-    printf("#               5 : Modify Automate                            #\n");
-    printf("#               6 : Delete Automate                            #\n");
-    printf("#               7 : Quit (and delete Automate)                 #\n");
+    printf("#             1 : Create Automate                              #\n");
+    printf("#             2 : Create Second Automate (cannot be displayed) #\n");
+    printf("#             3 : Display Automate                             #\n");
+    printf("#             4 : Display Production Automate                  #\n");
+    printf("#             5 : Modify Automate                              #\n");
+    printf("#             6 : Delete Automate                              #\n");
+    printf("#             7 : Is first automate included in second automate# (isn't working properly)\n");
+    printf("#             8 : Quit (and delete Automate)                   #\n");
     printf("#                                                              #\n");
     printf("################################################################\n");
     printf("Your Choice :");
@@ -309,6 +279,17 @@ int main(){
         }
         break;
       case 7:
+        if(fa_created1==true && fa_created2==true) {
+          if (fa_is_included(&fa_created1, &fa_created2)) {
+            printf("Automate number 1 could be included in automate number 2.\n");
+          } else {
+            printf("Automate number 1 can not be included in automate number 2.\n");
+          }
+        } else {
+          printf("Make sure to have created two automate.\n");
+        }
+        break;
+      case 8:
         printf("Exiting ...\n");
         if(fa_created1==true){
           fa_destroy(&tomate);
@@ -321,6 +302,6 @@ int main(){
         break;
     }
   }
-  return 0;*/
+  return 0;
 }
 

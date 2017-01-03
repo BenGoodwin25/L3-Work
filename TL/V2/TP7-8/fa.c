@@ -460,12 +460,39 @@ bool fa_create_deterministic(struct fa *self, const struct fa *nfa){
 }
 //7.2
 bool fa_is_included(const struct fa *lhs, const struct fa *rhs){
+  if(lhs->state_count>rhs->state_count){
+    return false;
+  }
+  if(lhs->alpha_count>rhs->alpha_count){
+    return false;
+  }
+  int i;
+  int max;
+  if(lhs->state_count<=rhs->state_count){
+    max=lhs->state_count;
+  } else {
+    max=rhs->state_count;
+  }
+  for(i=0;i<max;i++){
+    if(lhs->initial_states[i]!=rhs->initial_states[i]){
+      return false;
+    }
+    if(lhs->final_states[i]!=rhs->final_states[i]){
+      return false;
+    }
+  }
 
+  if(fa_count_transitions(lhs)>fa_count_transitions(rhs)){
+    return false;
+  }
+
+  // It isn't true, but it could be true, see it as it could be included
+  return true;
 }
 
 //8.1
 bool fa_are_nerode_equivalent(const struct fa *self, size_t s1, size_t s2){
-
+  //
 }
 //8.2
 void fa_create_minimal_nerode(struct fa *self,  const struct fa *other){
