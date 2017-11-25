@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include "list.h"
 
 
@@ -61,11 +58,11 @@ size_t listSize(const struct list* self){
     return size;
   }
 }
-
+/*
 void delNodeAfter(struct list_node* self){
 
 }
 
-struct list_node* searchNode(const struct list*  self, size_t state){
+struct list_node* searchNode(const struct list* self, size_t state){
 
-}
+}*/
